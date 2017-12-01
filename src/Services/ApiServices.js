@@ -14,7 +14,7 @@ export function register(data) {
     return response.data;
   }).catch(err => {
     return err;
-  });;
+  });
 }
 
 export function checkLogin(data){

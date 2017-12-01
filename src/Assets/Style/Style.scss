@@ -17,7 +17,7 @@ p{margin:0;}
 ._title{
     color: $redshade1-color;
     text-transform: uppercase;
-    font-size: 1.75em;
+    font-size: 1.5em;
     padding: 20px 0;
     font-weight: 300;
 }
@@ -28,10 +28,12 @@ p{margin:0;}
     border-radius:0;
     text-transform: uppercase;
     letter-spacing: 1px;
+    min-width:120px;
+    box-shadow:none!important;
     &.btn-primary{
             background: $redshade1-color;
             border-color:$redshade1-color;                      
-        &:hover{
+        &:hover, &:not(.disabled):active{
             background: $redshade2-color;
             border-color:$redshade2-color;
         }
@@ -44,5 +46,77 @@ p{margin:0;}
     padding:5px 0;
     &:empty{
         display:none;
+    }
+}
+
+.txt_Signin{
+    padding:20px 0;
+    margin-top:26px;
+    border-top:1px solid rgba(0, 0, 0, 0.1);
+    max-width:400px;
+    font-size:0.875rem;
+    strong{
+        display: block;
+    }
+}
+
+.btn_socialmedia{
+    a{
+        color: $white-color;
+        margin-right:10px;
+        font-size:0.875rem;
+        &._fb{
+            background-color: $fb-color;
+            &:hover{
+                background-color: $fbhover-color;
+            }
+        }
+        
+        &._twitter{
+            background-color: $twitter-color;
+            &:hover{
+                background-color: $twitterhover-color;
+            }
+        }
+        
+        &._google{
+            background-color: $google-color;
+            &:hover{
+                background-color: $googlehover-color;
+            }
+        }
+    }
+}
+
+
+
+
+//**form section**//
+input{
+    box-shadow:none!important;
+}
+.form-group{
+    text-transform:uppercase;
+    font-size:0.875rem;
+    label{
+        margin-bottom:5px;
+    }
+}
+.form-control{
+    border-radius:0;
+}
+
+
+.form-check{
+    font-size:0.875rem;
+    text-transform:uppercase;
+    .custom-checkbox .custom-control-indicator{
+        border-radius:0;
+    }
+    .custom-control-indicator{
+        top:3px;
+    }
+    .custom-control-input:checked ~ .custom-control-indicator{
+        background-color: $redshade1-color;
     }
 }

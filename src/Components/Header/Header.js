@@ -8,17 +8,17 @@ class Header extends Component {
     this.state = {
       isLogin:false
     }
-    // firebase.auth().onAuthStateChanged(function (user) {
-    //   if (user) {
-    //    alert('signin');
-    //    localStorage.setItem('isLogin',true);
-    //     // User is signed in.
-    //     //this.setState({ isLogin: true });
-    //   } else {
-    //     //alert('logout');
-    //     // No user is signed in.
-    //   }
-    // });
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+       alert('signin');
+       localStorage.setItem('isLogin',true);
+        // User is signed in.
+        //this.setState({ isLogin: true });
+      } else {
+        //alert('logout');
+        // No user is signed in.
+      }
+    });
   }
   componentWillMount(){
     //alert('asasas');
