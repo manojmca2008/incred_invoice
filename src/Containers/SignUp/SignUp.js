@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { signup } from '../../Services/AuthServices';
-//import { signup } from '../../Services/ApiServices';
+import { register ,validateOtp } from '../../Services/ApiServices';
 
 class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: false,
-      error: '',
+      error_msg: '',
       otpScreen: false,
       signupForm: {
         fname: '',
@@ -16,7 +16,8 @@ class SignUp extends Component {
         email: '',
         phone: '',
         password: '',
-        cpassword: ''
+        cpassword: '',
+        source:''
       },
       otpForm: {
         otp: '',
@@ -25,6 +26,7 @@ class SignUp extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleInputChangeOtpScreen = this.handleInputChangeOtpScreen.bind(this);
+    this.checkOtp = this.checkOtp.bind(this);
   }
   handleClick(e) {
     console.log(this.state.signupForm);
@@ -37,14 +39,25 @@ class SignUp extends Component {
         email:this.state.signupForm.email,
         phone:this.state.signupForm.phone,
         password:this.state.signupForm.password,
+        source: 'ws',
       }
+    //   register(userData).then(response => {
+    //     console.log(response);
+    //     if(response.result){
+    //         this.setState({ reg_error: '' });
+    //         var self = this;
+    //     }else{
+    //         this.setState({
+    //           error_msg: 'something went wrong.'
+    //         });
+    //     }
+    // }); 
       localStorage.setItem('userData',userData);
-      console.log(result);
       this.setState({ otpScreen: true });
     }).catch(err => {
-      // this.setState({
-      //   reg_error: err.message
-      // });
+      this.setState({
+        error_msg: err.message
+      });
     })
   }
   handleInputChange(event) {
@@ -56,6 +69,16 @@ class SignUp extends Component {
     this.setState({ otpForm: this.state.otpForm });
   }
   checkOtp() {
+  //   validateOtp(this.state.otpForm.otp).then(response => {
+  //     console.log(response);
+  //     if(response.result){
+          
+  //     }else{
+  //         this.setState({
+  //           error_msg: 'something went wrong.'
+  //         });
+  //     }
+  // }); 
     alert('sasas');
     console.log(this.state.otpForm);
   }
@@ -115,7 +138,7 @@ class SignUp extends Component {
               <button type="submit" className="btn btn-primary" onClick={this.handleClick}>Submit</button>
             </div>
             <div className="col">
-              <p><Link to="/sign-in">login</Link></p>
+              <p><Link to="/sign-in">{this.state.error_msg}login</Link></p>
             </div>
           </div>
         </div>

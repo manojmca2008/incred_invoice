@@ -1,4 +1,4 @@
-import { apiUrl } from '../config/constants';
+import { apiUrl } from '../Config/Constants';
 import axios from 'axios';
 import $ from 'jquery';
 
@@ -8,7 +8,12 @@ export function userDetails(userID) {
       return response.data;
     });
 }
-
+export function validateOtp(otp) {
+  return axios.get(apiUrl + 'signup/'+otp)
+    .then(response => {      
+      return response.data;
+    });
+}
 export function register(data) {
   return axios.post(apiUrl + 'signup', data).then(response => {
     return response.data;
