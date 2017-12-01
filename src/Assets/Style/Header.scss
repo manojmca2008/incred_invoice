@@ -1,0 +1,32 @@
+._header{
+    color: $white-color;
+    .strip_red{
+        background: $redshade1-color;
+        a:not(.brandlogo){
+            padding: 0 10px;
+            margin: 25px 0;
+            border-left:1px solid $white-color;
+            display: block;
+            font-size:0.875rem;
+            line-height:12px;
+        }
+        li:first-child{
+            a{
+               padding-left: 0;
+               border-left: 0;
+            }
+        }
+    }
+    .strip_black{
+        background: $black-color;
+        .row{
+            align-items:center;
+            min-height:40px;
+        }
+        .link_signin{padding-right:10px;}
+    }
+    a{
+        color: $white-color;
+       
+    }
+}

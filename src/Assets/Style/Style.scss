@@ -1,0 +1,36 @@
+a{text-transform:uppercase;}
+p{margin:0;}
+.text-align-right{text-align:right;}
+
+._mb30{
+    margin-bottom:30px;
+}
+
+._title{
+    color: $redshade1-color;
+    text-transform: uppercase;
+    font-size: 2em;
+    padding: 20px 0;
+}
+
+
+.btn{
+    cursor:pointer;
+    &.btn-primary{
+            background: $redshade1-color;
+            border-color:$redshade1-color;                      
+        &:hover{
+            background: $redshade2-color;
+            border-color:$redshade2-color;
+        }
+    }
+}
+
+.mes_error{
+    color: $red-color;
+    font-size:0.75rem;
+    padding:5px 0;
+    &:empty{
+        display:none;
+    }
+}
