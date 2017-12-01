@@ -20,7 +20,7 @@ import PageNotFound from "./../Containers/PageNotFound/PageNotFound";
 const Router = () => (
   <div>
     <Header />
-    <div className="container">
+    <div className="container-fluid">
     <Switch>
       <Route exact path='/' component={Home}/>
       <Route path='/create-invoice' component={CreateInvoice}/>

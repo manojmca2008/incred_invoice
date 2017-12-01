@@ -1,19 +1,40 @@
 ._header{
     color: $white-color;
+    font-size:0.8125rem;
+    letter-spacing:0.5px;
     .strip_red{
         background: $redshade1-color;
         a:not(.brandlogo){
             padding: 0 10px;
-            margin: 25px 0;
-            border-left:1px solid $white-color;
+            margin: 21px 0;
+            border-right:1px solid $white-color;
             display: block;
-            font-size:0.875rem;
-            line-height:12px;
+            line-height:11px;
         }
-        li:first-child{
+        li:last-child{
             a{
-               padding-left: 0;
-               border-left: 0;
+               padding-right: 0;
+               border-right: 0;
+            }
+        }
+    }
+    a{
+        color: $white-color;
+        &:not(.brandlogo){
+            &:hover{
+                opacity:0.7;
+            }
+        }
+        &:hover{
+            text-decoration: none;
+        }
+        &.brandlogo{
+            margin:6px 0 0;
+            display:inline-block;
+            font-size:1.6875rem;
+            font-weight:300;
+            strong{
+                font-weight:700;
             }
         }
     }
@@ -21,12 +42,10 @@
         background: $black-color;
         .row{
             align-items:center;
-            min-height:40px;
+            min-height:35px;
         }
-        .link_signin{padding-right:10px;}
-    }
-    a{
-        color: $white-color;
-       
+        .link_signin{
+            margin-right:15px;
+        }
     }
 }

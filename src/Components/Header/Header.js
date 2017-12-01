@@ -7,7 +7,7 @@ class Header extends Component {
       
         <header className="_header">
           <div className="strip_red">
-            <div className="container clearfix">
+            <div className="container-fluid clearfix">
             <Link to="/create-invoice" className="brandlogo"><strong>INCRED</strong> INVOICES</Link>
             <ul className="nav nav-pills float-right">
               <li className="nav-item"><Link to="/create-invoice">Create Invoice</Link></li>
@@ -20,10 +20,10 @@ class Header extends Component {
             </div> 
           </div>
           <div className="strip_black">
-            <div className="container">
+            <div className="container-fluid">
             <div className="row">
-              <div className="col">THE PROFESSIONAL GST INVOICING AND EXPENSE APPLICATION</div>
-              <div className="col text-align-right">
+              <div className="col-sm">THE PROFESSIONAL GST INVOICING AND EXPENSE APPLICATION</div>
+              <div className="col-sm text-align-right">
                 <Link to="/sign-in" className="link_signin">Sign In</Link>
                 <Link to="/sign-up">Sign Up</Link>
               </div>
