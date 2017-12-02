@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class VeiwPastInvoice extends Component {
+class ViewPastInvoice extends Component {
   render() {   
     return (
       <div>VeiwPastInvoice</div>
@@ -8,4 +8,4 @@ class VeiwPastInvoice extends Component {
   }
 }
 
-export default VeiwPastInvoice;
+export default ViewPastInvoice;
