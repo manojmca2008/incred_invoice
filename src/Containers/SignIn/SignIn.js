@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
 //import { showFormErrors, showInputError } from './../../helpers/FormValidation';
 import { BLANK_VALId, EMAIL_VALId } from './../../Constant/Messages';
-
 import { Field, reduxForm } from 'redux-form'
-
+import { login} from '../../Services/AuthServices';
 
 
 class SignIn extends Component {
@@ -54,7 +52,25 @@ class SignIn extends Component {
     const { dispatch } = this.props;
     if(email && password){
       console.log('thanks');
-      //dispatch(userActions.login(email, password));
+      login(email, password).then(response => {
+        let result = JSON.stringify(response);
+        localStorage.setItem('isLogin', true);
+        this.props.history.push('/create-invoice');
+        console.log(result);
+        // var userData = {
+        //   fname: this.state.signupForm.fname,
+        //   lname: this.state.signupForm.lname,
+        //   email: this.state.signupForm.email,
+        //   phone: this.state.signupForm.phone,
+        //   password: this.state.signupForm.password,
+        //   source: 'ws',
+        // }
+        // localStorage.setItem('userData', JSON.stringify(userData));
+      }).catch(err => {
+        this.setState({
+          error_msg: err.message
+        });
+      })
     }
 
    
@@ -102,7 +118,7 @@ class SignIn extends Component {
             <div className="col">
               <p><Link to="/forget-password">Lost your password?</Link></p>
               <p>Not registered yet, Register Now</p>
-              <p><Link to="/sign-up">Sign Up</Link></p>
+              <p><Link to="/sign-up">{this.state.error_msg}Sign Up</Link></p>
             </div>
           </div>
         </div>

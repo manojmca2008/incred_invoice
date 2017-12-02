@@ -27,6 +27,7 @@ class Header extends Component {
     logout();
     localStorage.removeItem('isLogin');
     localStorage.removeItem('userData');
+    this.props.history.push('/create-invoice');
   }
   render() {
     if (localStorage.getItem('isLogin')) {
