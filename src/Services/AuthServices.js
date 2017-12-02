@@ -1,4 +1,4 @@
-import {firebaseAuth} from '../Config/Constants';
+//import {firebaseAuth} from '../Config/Constants';
 import firebase from 'firebase'
 
 //class AuthServices extends Component {

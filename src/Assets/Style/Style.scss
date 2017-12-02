@@ -42,10 +42,13 @@ p{margin:0;}
 
 .mes_error{
     color: $red-color;
-    font-size:0.75rem;
-    padding:5px 0;
+    font:0.75rem arial;
+    margin:5px 0;
     &:empty{
-        display:none;
+        display:none; 
+    }
+    &.api_error{
+        margin:0 0 14px;
     }
 }
 
@@ -96,17 +99,15 @@ input{
     box-shadow:none!important;
 }
 .form-group{
-    text-transform:uppercase;
     font-size:0.875rem;
     label{
         margin-bottom:5px;
+        text-transform:uppercase;
     }
 }
 .form-control{
     border-radius:0;
 }
-
-
 .form-check{
     font-size:0.875rem;
     text-transform:uppercase;

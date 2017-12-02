@@ -12,6 +12,5 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 
 export const firebaseDatabase = firebase.database().ref()
-export const firebaseAuth = firebase.auth
+//export const firebaseAuth = firebase.auth
 export const apiUrl = 'http://api.kalakar.com/api/invoice/';
-export const restId = 1;

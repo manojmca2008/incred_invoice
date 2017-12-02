@@ -1,64 +1,59 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
-
-import { BLANK_VALId, EMAIL_VALId } from './../../Constant/Messages';
-
 import { Email, Password } from './../../Helpers/FormValidation';
-
-import { Field, reduxForm } from 'redux-form'
-
-
+import { login } from '../../Services/AuthServices';
 
 class SignIn extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       email: '',
       password: '',
-      submitted: false,
-
-      email_errormes : '',
-      password_errormes : '',
-
+      submitted: false
     }
-
     this.LoginSubmit = this.LoginSubmit.bind(this);
-    this.Loginchange = this.Loginchange.bind(this);
-
+    this.InputHandler = this.InputHandler.bind(this);
   }
 
   LoginValid() {
     this.setState({
-      email_errormes : Email(this.state.email),
-      password_errormes : Password(this.state.password)
+      email_errormes: Email(this.state.email),
+      password_errormes: Password(this.state.password)
     })
   }
 
-  Loginchange(e) {
-    e.preventDefault();
+  InputHandler(e) {
     this.LoginValid();
     const { name, value } = e.target;
     this.setState({ [name]: value });
   }
 
+  RememberPassword(){
+    const { rememberpassword } = this.state;
+    console.log(rememberpassword)
+  }
+
+
   LoginSubmit(e) {
     e.preventDefault();
     this.LoginValid();
+    this.RememberPassword();
     this.setState({ submitted: true });
     const { email, password } = this.state;
-    const { dispatch } = this.props;
     if (email && password) {
-      console.log('thanks');
-      //dispatch(userActions.login(email, password));
+      login(email, password).then(response => {
+        let result = JSON.stringify(response);
+        localStorage.setItem('isLogin', true);
+        this.props.history.push('/create-invoice');
+        console.log(result);
+      }).catch(err => {
+        this.setState({
+          error_msg: err.message
+        });
+      })
     }
-
-
-
   }
   render() {
-    const { email, password, submitted } = this.state;
     return (
       <div className="container page_signin">
         <div className="section_login">
@@ -66,26 +61,28 @@ class SignIn extends Component {
           <div className="row">
             <div className="col">
               <div className="form_login">
-                <div className={'form-group' + (submitted && !email ? ' has-error' : '')}>
+                <div className="form-group">
                   <label id="emailLabel">Email</label>
-                  <input type="text" className="form-control" name="email" value={email} onChange={this.Loginchange} />
-                  <p className="mes_error"> {this.state.email_errormes} </p>
+                  <input type="text" className="form-control" name="email" onChange={this.InputHandler} />
+                  <p className="mes_error">{this.state.email_errormes}</p>
                 </div>
-                <div className={'form-group' + (submitted && !password ? ' has-error' : '')}>
+                <div className="form-group">
                   <label id="passwordLabel">Password</label>
-                  <input type="password" className="form-control" name="password" ref="password" value={this.state.password} onChange={this.Loginchange} />
-                  <p className="mes_error"> {this.state.password_errormes} </p>
+                  <input type="password" className="form-control" name="password" onChange={this.InputHandler} />
+                  <p className="mes_error">{this.state.password_errormes}</p>
                 </div>
+                <p className="mes_error api_error">{this.state.error_msg}</p>
                 <div className="form-check">
                   <label className="custom-control custom-checkbox ">
-                    <input type="checkbox" className="custom-control-input" />
+                    <input type="checkbox" className="custom-control-input" name="rememberpassword" checked={this.state.isChecked} />
                     <span className="custom-control-indicator"></span>
                     Remember Me
                 </label>
                 </div>
+                
                 <button type="submit" className="btn btn-primary btn_login" onClick={this.LoginSubmit}>Login</button>
               </div>
-              <div className="section_socialmedia">
+              <div className="section_socialmedia hide">
                 <p className="txt_Signin"><strong>Or Sign in With Social Media</strong>You can also sign in with your social media accounts.</p>
                 <div className="btn_socialmedia">
                   <a href="javascript:void(0)" className="btn _fb">Facebook</a>
@@ -96,7 +93,7 @@ class SignIn extends Component {
             <div className="col">
               <p><Link to="/forget-password">Lost your password?</Link></p>
               <p>Not registered yet, Register Now</p>
-              <p><Link to="/sign-up">Sign Up</Link></p>
+              <p><Link to="/sign-up">{this.state.error_msg}Sign Up</Link></p>
             </div>
           </div>
         </div>

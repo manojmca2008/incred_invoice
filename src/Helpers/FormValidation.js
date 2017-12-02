@@ -18,7 +18,7 @@ function Password(inputVal){
   let errormes
   if(!error){
     errormes = BLANK_VALId
-  } else if ( error.length < 6 ){
+  } else if ( error.length < 5 ){
     errormes = SIXDIGIT_VALId
   }
   return errormes
