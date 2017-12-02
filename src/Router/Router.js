@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 import Header from "./../Components/Header/Header";
 import Home from "./../Containers/Home/Home";
 import CreateInvoice from "./../Containers/CreateInvoice/CreateInvoice";
-import VeiwPastInvoice from "./../Containers/VeiwPastInvoice/VeiwPastInvoice";
+import ViewPastInvoice from "./../Containers/ViewPastInvoice/ViewPastInvoice";
 import TrackPaymentsDue from "./../Containers/TrackPaymentsDue/TrackPaymentsDue";
 import AccountOverview from "./../Containers/AccountOverview/AccountOverview";
 import RecordExpenses from "./../Containers/RecordExpenses/RecordExpenses";
@@ -24,7 +24,7 @@ const Router = () => (
     <Switch>
       <Route exact path='/' component={Home}/>
       <Route path='/create-invoice' component={CreateInvoice}/>
-      <Route path='/veiw-past-invoice' component={VeiwPastInvoice}/>
+      <Route path='/view-past-invoice' component={ViewPastInvoice}/>
       <Route path='/track-payments-due' component={TrackPaymentsDue}/>
       <Route path='/account-overview' component={AccountOverview}/>
       <Route path='/record-expenses' component={RecordExpenses}/>

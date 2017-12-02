@@ -13,6 +13,7 @@ class ForgetPassword extends Component {
   }
 
   handleInputChange(event) {
+    
     const target = event.target;
     const value = target.value;
     const name = target.name;
@@ -20,6 +21,7 @@ class ForgetPassword extends Component {
     this.setState({
       [name]: value
     });
+    
   }
   handleClick(e) {
     e.preventDefault();

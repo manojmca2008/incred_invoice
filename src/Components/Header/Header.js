@@ -32,7 +32,7 @@ class Header extends Component {
             <Link to="/create-invoice" className="brandlogo"><strong>INCRED</strong> INVOICES</Link>
             <ul className="nav nav-pills float-right">
               <li className="nav-item"><Link to="/create-invoice">Create Invoice</Link></li>
-              <li className="nav-item"><Link to="/veiw-past-invoice">Veiw Past Invoice</Link></li>
+              <li className="nav-item"><Link to="/view-past-invoice">View Past Invoice</Link></li>
               <li className="nav-item"><Link to="/track-payments-due">Track Payments Due</Link></li>
               <li className="nav-item"><Link to="/account-overview">Account Overview</Link></li>
               <li className="nav-item"><Link to="/record-expenses">Record Expenses</Link></li>

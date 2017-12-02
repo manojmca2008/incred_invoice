@@ -1,29 +1,67 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-//import { connect } from 'react-redux';
+
+//import { showFormErrors, showInputError } from './../../helpers/FormValidation';
+import { BLANK_VALId, EMAIL_VALId } from './../../Constant/Messages';
+
+import { Field, reduxForm } from 'redux-form'
+
+
 
 class SignIn extends Component {
   constructor(props) {
     super(props);
+    
     this.state = {
-      LoginForm: {
-        userid: '',
-        password:''
-      }
+      email: '',
+      password: '',
+      email1: '',
+      submitted: false,
+      error_msg: '',
     }
-    this.Loginchange = this.Loginchange.bind(this);
+
     this.LoginSubmit = this.LoginSubmit.bind(this);
+    this.Loginchange = this.Loginchange.bind(this);
+    
   }
-  Loginchange(e){
-     
+  Loginchange(e) {
+    e.preventDefault();
     const { name, value } = e.target;
-    this.setState({ [name]: value });      
-     
+    this.setState({ [name]: value });
   }
+
   LoginSubmit(e) {
-    console.log(this.state.LoginForm);
-  } 
+    e.preventDefault();
+    let aa = this.state.email;
+    let emailFormat = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    var testi = '';
+    if(!this.state.email){
+      
+    aa = BLANK_VALId
+      console.log('1');
+      
+    }else if(!emailFormat.test(this.state.email)){
+       aa =  EMAIL_VALId
+      console.log('2');
+    }else{
+      aa =  '';
+    }
+    this.setState({
+      email1: aa
+    })
+    this.setState({ submitted: true });
+    const {email, password} = this.state;
+    const { dispatch } = this.props;
+    if(email && password){
+      console.log('thanks');
+      //dispatch(userActions.login(email, password));
+    }
+
+   
+    
+  }
   render() {
+    const { email, password, submitted } = this.state;
     return (
       <div className="container page_signin">
         <div className="section_login">
@@ -31,14 +69,18 @@ class SignIn extends Component {
           <div className="row">
             <div className="col">
               <div className="form_login">
-                <div className="form-group">
-                  <label>Email</label>
-                  <input type="email" className="form-control" value={this.state.userid} onChange={this.Loginchange} />
-                  <p className="mes_error"></p>
+                <div className={'form-group' + (submitted && !email ? ' has-error' : '')}>
+                  <label id="emailLabel">Email</label>
+                  <input type="text" className="form-control" name="email" value={email} onChange={this.Loginchange} />
+                  <p className="mes_error"> {this.state.email1} </p>
                 </div>
-                <div className="form-group">
-                  <label>Password</label>
-                  <input type="password" className="form-control" value={this.state.password} onChange={this.Loginchange} />
+                <div className={'form-group' + (submitted && !password ? ' has-error' : '')}>
+                  <label id="passwordLabel">Password</label>
+                  <input type="password" className="form-control" name="password" ref="password" value={this.state.password} onChange={this.Loginchange} />
+                  {
+                    submitted && !password && 
+                    <p className="mes_error">Arpit</p>                    
+                  }
                 </div>
                 <div className="form-check">
                   <label className="custom-control custom-checkbox ">
@@ -47,7 +89,7 @@ class SignIn extends Component {
                     Remember Me
                 </label>
                 </div>
-                <button type="submit" className="btn btn-primary btn_login"  onClick={this.LoginSubmit}>Login</button>
+                <button type="submit" className="btn btn-primary btn_login" onClick={this.LoginSubmit}>Login</button>
               </div>
               <div className="section_socialmedia">
                 <p className="txt_Signin"><strong>Or Sign in With Social Media</strong>You can also sign in with your social media accounts.</p>
