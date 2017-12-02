@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { signup } from '../../Services/AuthServices';
-import { register ,validateOtp } from '../../Services/ApiServices';
+import { register, validateOtp } from '../../Services/ApiServices';
 
 class SignUp extends Component {
   constructor(props) {
@@ -17,7 +17,7 @@ class SignUp extends Component {
         phone: '',
         password: '',
         cpassword: '',
-        source:''
+        source: ''
       },
       otpForm: {
         otp: '',
@@ -29,30 +29,29 @@ class SignUp extends Component {
     this.checkOtp = this.checkOtp.bind(this);
   }
   handleClick(e) {
-    console.log(this.state.signupForm);
     e.preventDefault();
     signup(this.state.signupForm.email, this.state.signupForm.password).then(response => {
       let result = JSON.stringify(response);
-      let userData = {
-        fname:this.state.signupForm.fname,
-        lname:this.state.signupForm.lname,
-        email:this.state.signupForm.email,
-        phone:this.state.signupForm.phone,
-        password:this.state.signupForm.password,
+      var userData = {
+        fname: this.state.signupForm.fname,
+        lname: this.state.signupForm.lname,
+        email: this.state.signupForm.email,
+        phone: this.state.signupForm.phone,
+        password: this.state.signupForm.password,
         source: 'ws',
       }
-    //   register(userData).then(response => {
-    //     console.log(response);
-    //     if(response.result){
-    //         this.setState({ reg_error: '' });
-    //         var self = this;
-    //     }else{
-    //         this.setState({
-    //           error_msg: 'something went wrong.'
-    //         });
-    //     }
-    // }); 
-      localStorage.setItem('userData',userData);
+      //   register(userData).then(response => {
+      //     console.log(response);
+      //     if(response.result){
+      //         this.setState({ reg_error: '' });
+      //         var self = this;
+      //     }else{
+      //         this.setState({
+      //           error_msg: 'something went wrong.'
+      //         });
+      //     }
+      // }); 
+      localStorage.setItem('userData', JSON.stringify(userData));
       this.setState({ otpScreen: true });
     }).catch(err => {
       this.setState({
@@ -69,18 +68,21 @@ class SignUp extends Component {
     this.setState({ otpForm: this.state.otpForm });
   }
   checkOtp() {
-  //   validateOtp(this.state.otpForm.otp).then(response => {
-  //     console.log(response);
-  //     if(response.result){
-          
-  //     }else{
-  //         this.setState({
-  //           error_msg: 'something went wrong.'
-  //         });
-  //     }
-  // }); 
-    alert('sasas');
+    //   validateOtp(this.state.otpForm.otp).then(response => {
+    //     console.log(response);
+    //     if(response.result){
+
+    //     }else{
+    //         this.setState({
+    //           error_msg: 'something went wrong.'
+    //         });
+    //     }
+    // }); 
+  
     console.log(this.state.otpForm);
+    localStorage.setItem('isLogin', true);
+    //window.location.reload();
+    this.props.history.push('/create-invoice');
   }
 
   render() {
@@ -146,5 +148,4 @@ class SignUp extends Component {
     }
   }
 }
-
 export default SignUp;

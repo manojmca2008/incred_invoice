@@ -1,34 +1,45 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import firebase from 'firebase';
+import { signup, logout } from '../../Services/AuthServices';
 
 class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLogin:false
+      isLogin: false,
+      login: '',
+      signup: '',
     }
-    // firebase.auth().onAuthStateChanged(function (user) {
-    //   if (user) {
-    //    alert('signin');
-    //    localStorage.setItem('isLogin',true);
-    //     // User is signed in.
-    //     //this.setState({ isLogin: true });
-    //   } else {
-    //     //alert('logout');
-    //     // No user is signed in.
-    //   }
-    // });
-  }
-  componentWillMount(){
-    //alert('asasas');
-  }
+    this.signOut = this.signOut.bind(this);
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user && localStorage.getItem('isLogin')) {
 
+      } else {
+
+      }
+    });
+  }
+  componentWillMount() {
+
+  }
+  signOut() {
+    logout();
+    localStorage.removeItem('isLogin');
+    localStorage.removeItem('userData');
+  }
   render() {
+    if (localStorage.getItem('isLogin')) {
+      this.state.login = <Link to="#" className="link_signin" onClick={this.signOut}>Sign Out</Link>;
+      this.state.signup = '';
+    } else {
+      this.state.login = <Link to="/sign-in" className="link_signin">Sign In</Link>;
+      this.state.signup = <Link to="/sign-up">Sign Up</Link>;
+    }
     return (
-        <header className="_header">
-          <div className="strip_red">
-            <div className="container-fluid clearfix">
+      <header className="_header">
+        <div className="strip_red">
+          <div className="container-fluid clearfix">
             <Link to="/create-invoice" className="brandlogo"><strong>INCRED</strong> INVOICES</Link>
             <ul className="nav nav-pills float-right">
               <li className="nav-item"><Link to="/create-invoice">Create Invoice</Link></li>
@@ -45,8 +56,8 @@ class Header extends Component {
             <div className="row">
               <div className="col">THE PROFESSIONAL GST INVOICING AND EXPENSE APPLICATION</div>
               <div className="col text-align-right">
-                <Link to="/sign-in" className="link_signin">{localStorage.getItem('isLogin') ? "Sign Out" :"Sign In"}</Link>
-                <Link to="/sign-up">Sign Up</Link>
+                {this.state.login}
+                {this.state.signup}
               </div>
             </div>
           </div>
