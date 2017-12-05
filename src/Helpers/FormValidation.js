@@ -39,7 +39,7 @@ function Phone(inputVal){
     errormes = PHONENOPRANK_VALId
   } else if ( error.length < 10 ){
     errormes = PHONEFORMAT_VALId
-  }
+  } 
   return errormes
 }
 function ConformPassword(inputVal){
@@ -53,7 +53,23 @@ function ConformPassword(inputVal){
   return errormes
 }
 
+function PhoneNumberFormat(inputVal){
+  /*let inputval = inputVal;
+  let PhoneFormat = new RegExp(/[^-0-9 !@#$%^&*()+,:;.",]/g);
+  let key =  window.event;
+  console.log(key)
+  if(key ===37 || key ===38 || key ===39 ||key ===40 || key === 8 || key === 46){
+      return true ;
+  }
+  let value = inputval.replace(PhoneFormat , "");
+  value = inputval.trim().replace(/\./g,'');  
+  if(value.length > 11) {
+    inputVal.val(value.substr(0, 11));
+  }else{
+    inputVal.val(value);
+  } */
+};
 
 
 
-export { Email, Password, RequireVal, Phone, ConformPassword}
+export { Email, Password, RequireVal, Phone, ConformPassword, PhoneNumberFormat}
