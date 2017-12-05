@@ -101,6 +101,7 @@
   },
   "devDependencies": {
     "node-sass": "^4.7.2",
+    "react-select-country": "0.0.15",
     "sass-loader": "^6.0.6"
   }
 }

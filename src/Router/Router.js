@@ -13,8 +13,6 @@ import ViewPassExpenses from "./../Containers/ViewPassExpenses/ViewPassExpenses"
 import SignIn from "./../Containers/SignIn/SignIn";
 import SignUp from "./../Containers/SignUp/SignUp";
 import ForgetPassword from "./../Containers/ForgetPassword/ForgetPassword";
-
-
 import PageNotFound from "./../Containers/PageNotFound/PageNotFound";
 
 const Router = () => (

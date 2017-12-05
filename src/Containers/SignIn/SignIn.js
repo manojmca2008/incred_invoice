@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
+import firebase from 'firebase';
 import './../../Assets/Style/User.scss';
 
 import { Email, Password } from './../../Helpers/FormValidation';
@@ -10,11 +10,20 @@ import { login } from '../../Services/AuthServices';
 class SignIn extends Component {
   constructor(props) {
     super(props);
+    let self = this;
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user && localStorage.getItem('isLogin')) {
+        self.props.history.push('/create-invoice');
+      } else {
+        
+      }
+    });
     this.state = {
       email: '',
       password: '',
       submitted: false
     }
+    //console.log(this.props.location.pathname);
     this.HandleClick = this.HandleClick.bind(this);
     this.InputHandler = this.InputHandler.bind(this);
   }

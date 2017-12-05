@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import firebase from 'firebase';
+import { Redirect } from 'react-router';
 import { signup, logout } from '../../Services/AuthServices';
-
 import './../../Assets/Style/Header.scss';
 
 class Header extends Component {
@@ -29,7 +29,7 @@ class Header extends Component {
     logout();
     localStorage.removeItem('isLogin');
     localStorage.removeItem('userData');
-    this.props.history.push('/create-invoice');
+    <Redirect to='/create-invoice'/>;
   }
   render() {
     if (localStorage.getItem('isLogin')) {
