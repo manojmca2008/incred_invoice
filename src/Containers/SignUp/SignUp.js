@@ -87,11 +87,13 @@ class SignUp extends Component {
   }
   InputHandler(e) {
     let inputvalue = e.target.value;
+
+    this.state.signupForm[e.target.name] = e.target.value;
+
     const { name, value } = e.target;
+    
     this.setState({
-      SignupForm: {
-        [name]: value
-      },
+      signupForm: this.state.signupForm,
       SignupFormMes: {
         [name]: value
       }
