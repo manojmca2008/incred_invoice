@@ -1,6 +1,6 @@
 import { apiUrl } from '../Config/Constants';
 import axios from 'axios';
-import $ from 'jquery';
+//import $ from 'jquery';
 
 export function userDetails(userID) {
   return axios.get(apiUrl + 'user/'+userID)
