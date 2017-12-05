@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i,800');
 
+@import 'Variable';
+
 body{
     font-family: 'Open Sans', sans-serif;
 }
@@ -10,6 +12,12 @@ p{margin:0;}
 
 .text-align-right{text-align:right;}
 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
 ._mb30{
     margin-bottom:30px;
 }
@@ -18,7 +26,7 @@ p{margin:0;}
     color: $redshade1-color;
     text-transform: uppercase;
     font-size: 1.5em;
-    padding: 20px 0;
+    padding: 15px 0;
     font-weight: 300;
 }
 
@@ -30,6 +38,7 @@ p{margin:0;}
     letter-spacing: 1px;
     min-width:120px;
     box-shadow:none!important;
+    font-size:0.875rem;
     &.btn-primary{
             background: $redshade1-color;
             border-color:$redshade1-color;                      
@@ -107,6 +116,10 @@ input{
 }
 .form-control{
     border-radius:0;
+    font-size: 0.875rem;
+    &:focus{
+        border-color:$grayshade1-color;
+    }
 }
 .form-check{
     font-size:0.875rem;
@@ -119,5 +132,12 @@ input{
     }
     .custom-control-input:checked ~ .custom-control-indicator{
         background-color: $redshade1-color;
+    }
+}
+
+.btn-link{
+    color: $grayshade1-color;
+    &:hover{
+        color: $redshade2-color;
     }
 }

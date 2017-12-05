@@ -1,75 +1,61 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { forgotPassword } from '../../Services/AuthServices';
+import { Email } from './../../Helpers/FormValidation';
+import { RESETTHANKYOU_VALId } from './../../Constant/Messages';
 
 class ForgetPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      firebase_forget_error: '',
+      email: ''
     }
-    this.handleInputChange = this.handleInputChange.bind(this);
+    this.InputHandler = this.InputHandler.bind(this);
   }
 
-  handleInputChange(event) {
-    
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-
+  InputHandler(e) {
+    const { name, value } = e.target;
     this.setState({
-      [name]: value
+      [name]: value,
+      email_errormes: Email(e.target.value)
     });
-    
   }
-  handleClick(e) {
+  HandleClick(e) {
     e.preventDefault();
-    if (this.state.email === '') {
+    let hasError = Email(this.state.email);
+    if (hasError) {
       this.setState({
-        firebase_forget_error: 'Email is not empty!'
+        email_errormes: Email(this.state.email)
       });
+      return false;
     } else {
       forgotPassword(this.state.email).then(value => {
         this.setState({
-          firebase_forget_error: 'A link has been sent to your mail for reset your password'
+          email_thanksmes: RESETTHANKYOU_VALId
         });
-
       }).catch(err => {
         this.setState({
-          firebase_forget_error: err.message
+          email_errormes: err.message
         });
       })
     }
   }
-  handleGoBackClick(e) {
-    window.location.reload('/');
-  }
   render() {
     return (
-      <div>
-        <p className="_title">Oh no, You Forgot Your Password?</p>
-        <div className="row">
-          <div className="col">
-          <div className="form-group">
-                    <input
-                        className="form-control"
-                        placeholder="E-mail"
-                        name="email"
-                        type="email"
-                        value={this.state.email}
-                        onChange={this.handleInputChange} />
-                </div>
-                <div className="error">
-                    {this.state.firebase_forget_error}
-                </div>
-            <button type="submit" className="btn btn-primary" onClick={(event) => this.handleClick(event)}>Submit</button>
-            <Link to="/sign-in" className="btn" onClick={(event) => this.handleGoBackClick(event)}>Back</Link>
-          </div>
+      <div className="section_user">
+        <p className="_title">Forgot password</p>
+        <div className="form-group">
+          <label>Email</label>
+          <input className="form-control" name="email" type="email" value={this.state.email} onChange={this.InputHandler} />
+          <p className="mes_error">{this.state.email_errormes}</p>
+          <p className="mes_thanksmes">{this.state.email_thanksmes}</p>
+        </div>
+        <button type="submit" className="btn btn-primary btn_100" onClick={(e) => this.HandleClick(e)}>Submit</button>
+        <div className="section_btnpassword">
+          <p><Link to="/sign-in" className="btn btn-success">login</Link>  <Link to="/sign-up" className="btn btn-success">Sign Up</Link></p>
         </div>
       </div>
     );
   }
 }
-
 export default ForgetPassword;

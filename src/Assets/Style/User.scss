@@ -1,0 +1,51 @@
+@import 'Variable';
+
+.section_user{
+    max-width:350px;
+    margin:0 auto;
+    padding: 20px 0;
+    .txt_lost_password{
+        border-top: 1px solid $grayshade3-color;
+        padding-top:10px;
+        margin-top: 30px;
+        text-align:center;
+        a{
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+    }
+    .btn_100{
+        width:100%;
+    }
+    .section_registered{
+        border-top: 1px solid $grayshade3-color;    
+        padding-top: 10px;
+        margin-top: 24px;
+        text-align: center;
+        .txt_notregistered{
+            font-size: 0.875rem;
+            padding-bottom: 15px;
+            //text-transform: uppercase;
+            color:$grayshade1-color;
+        }
+    }
+    .mes_thanksmes{
+        padding:5px 0 0;
+        font-size: 1em;
+        font-weight: 700;
+    }
+    &.section_user{
+        .section_registered{
+            margin-top: 10px;
+            padding-top: 24px;
+        }
+    }
+    .section_btnpassword{
+        margin-top: 30px;
+        border-top: 1px solid $grayshade3-color;
+        padding: 30px 0;
+        text-align: center;
+    }
+}
+
+

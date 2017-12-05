@@ -1,4 +1,4 @@
-import { BLANK_VALId, EMAIL_VALId, SIXDIGIT_VALId } from './../Constant/Messages';
+import { BLANK_VALId, EMAIL_VALId, SIXDIGIT_VALId,PHONENOPRANK_VALId,PHONEFORMAT_VALId } from './../Constant/Messages';
 
 function Email(inputVal){
   let error = inputVal;
@@ -14,7 +14,6 @@ function Email(inputVal){
 
 function Password(inputVal){
   let error = inputVal;
-  console.log();
   let errormes
   if(!error){
     errormes = BLANK_VALId
@@ -24,4 +23,37 @@ function Password(inputVal){
   return errormes
 }
 
-export { Email, Password}
+function RequireVal(inputVal){
+  let error = inputVal;
+  let errormes
+  if(!error){
+    errormes = BLANK_VALId
+  }
+  return errormes
+}
+
+function Phone(inputVal){
+  let error = inputVal;
+  let errormes
+  if(!error){
+    errormes = PHONENOPRANK_VALId
+  } else if ( error.length < 10 ){
+    errormes = PHONEFORMAT_VALId
+  }
+  return errormes
+}
+function ConformPassword(inputVal){
+  let error = inputVal;
+  let errormes
+  if(!error){
+    errormes = BLANK_VALId
+  } else if ( error.length < 5 ){
+    errormes = SIXDIGIT_VALId
+  }
+  return errormes
+}
+
+
+
+
+export { Email, Password, RequireVal, Phone, ConformPassword}

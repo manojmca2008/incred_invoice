@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+
+import './../../Assets/Style/User.scss';
+
 import { signup } from '../../Services/AuthServices';
 import { register, validateOtp } from '../../Services/ApiServices';
+
+import { Email, Password, RequireVal, Phone, ConformPassword} from './../../Helpers/FormValidation';
+
 
 class SignUp extends Component {
   constructor(props) {
@@ -23,14 +29,16 @@ class SignUp extends Component {
         otp: '',
       }
     }
-    this.handleInputChange = this.handleInputChange.bind(this);
+    this.InputHandler = this.InputHandler.bind(this);
+    this.SignUpValid = this.SignUpValid.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleInputChangeOtpScreen = this.handleInputChangeOtpScreen.bind(this);
     this.checkOtp = this.checkOtp.bind(this);
   }
   handleClick(e) {
     e.preventDefault();
-    signup(this.state.signupForm.email, this.state.signupForm.password).then(response => {
+    this.SignUpValid();
+    /*signup(this.state.signupForm.email, this.state.signupForm.password).then(response => {
       let result = JSON.stringify(response);
       var userData = {
         fname: this.state.signupForm.fname,
@@ -57,15 +65,29 @@ class SignUp extends Component {
       this.setState({
         error_msg: err.message
       });
-    })
+    })*/
   }
-  handleInputChange(event) {
-    this.state.signupForm[event.target.name] = event.target.value;
-    this.setState({ signupForm: this.state.signupForm });
-  }
+  
   handleInputChangeOtpScreen(event) {
     this.state.otpForm[event.target.name] = event.target.value;
     this.setState({ otpForm: this.state.otpForm });
+  }
+  SignUpValid(){
+    this.setState({
+        fname_msg: RequireVal(this.state.signupForm.fname_msg),
+        email_msg: Email(this.state.signupForm.email),
+        phone_msg: Phone(this.state.signupForm.phone_msg),
+        password_msg: Password(this.state.signupForm.password_msg),
+        cpassword_msg: ConformPassword(this.state.signupForm.cpassword_msg)
+    })
+    
+  }
+  InputHandler(e) {
+   // this.SignUpValid();
+    const { name, value } = e.target;
+    this.setState({ signupForm: {
+      [name]: value
+    }});
   }
   checkOtp() {
     //   validateOtp(this.state.otpForm.otp).then(response => {
@@ -103,45 +125,47 @@ class SignUp extends Component {
       )
     } else {
       return (
-        <div>
+        <div className="page_signup section_user">
           <p className="_title">Sign Up</p>
-          <div className="row">
-            <div className="col">
+          <div className="">
               <div className="form-group">
                 <label>First Name</label>
-                <input className="form-control" placeholder="" name="fname" value={this.state.fname} onChange={this.handleInputChange} />
+                <input className="form-control" type="text" name="fname" value={this.state.fname} onChange={this.InputHandler} />
+                <p className="mes_error">{this.state.fname_msg}</p>
               </div>
               <div className="form-group">
                 <label>Last name</label>
-                <input className="form-control" placeholder="" name="lname" value={this.state.lname} onChange={this.handleInputChange} />
+                <input className="form-control" type="text" name="lname" value={this.state.lname} onChange={this.InputHandler} />
               </div>
 
               <div className="form-group">
                 <label>Email address</label>
-                <input type="email" className="form-control" aria-describedby="emailHelp" placeholder="Enter email" name="email" value={this.state.email} onChange={this.handleInputChange} />
-                <p className="mes_error"></p>
+                <input className="form-control" type="email" name="email" value={this.state.email} onChange={this.InputHandler} />
+                <p className="mes_error">{this.state.email_msg}</p>
               </div>
 
               <div className="form-group">
                 <label>Phone Number</label>
-                <input className="form-control" placeholder="" name="phone" value={this.state.phone} onChange={this.handleInputChange} />
+                <input className="form-control" type="number" name="phone" value={this.state.phone} onChange={this.InputHandler} />
+                <p className="mes_error">{this.state.phone_msg}</p>
               </div>
 
               <div className="form-group">
                 <label>Password</label>
-                <input type="password" className="form-control" placeholder="Password" name="password" value={this.state.password} onChange={this.handleInputChange} />
+                <input className="form-control" type="password"  name="password" value={this.state.password} onChange={this.InputHandler} />
+                <p className="mes_error">{this.state.password_msg}</p>
               </div>
 
-              <div className="form-group">
+              <div className="form-group _mb30">
                 <label>Confirm Password</label>
-                <input type="password" className="form-control" placeholder="Password" name="cpassword" value={this.state.cpassword} onChange={this.handleInputChange} />
+                <input className="form-control" type="password" name="cpassword" value={this.state.cpassword} onChange={this.InputHandler} />
+                <p className="mes_error">{this.state.cpassword_msg}</p>
               </div>
-
-              <button type="submit" className="btn btn-primary" onClick={this.handleClick}>Submit</button>
-            </div>
-            <div className="col">
-              <p><Link to="/sign-in">{this.state.error_msg}login</Link></p>
-            </div>
+              <button type="submit" className="btn btn-primary btn_100" onClick={this.handleClick}>Submit</button>
+          </div>
+          <div className="section_registered">
+            <p className="txt_notregistered">Already have an account</p>
+            <p><Link to="/sign-in" className="btn btn-success">login</Link></p>
           </div>
         </div>
       );

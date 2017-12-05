@@ -1,3 +1,5 @@
+@import 'Variable';
+
 ._header{
     color: $white-color;
     font-size:0.8125rem;
@@ -27,6 +29,7 @@
         }
         &:hover{
             text-decoration: none;
+            color:$white-color;
         }
         &.brandlogo{
             margin:6px 0 0;

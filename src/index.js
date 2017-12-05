@@ -11,6 +11,7 @@ import './Assets/Style/Screen.scss';
 
 //import registerServiceWorker from './registerServiceWorker';
 ReactDOM.render((
+    
     <BrowserRouter>
         <Router />
     </BrowserRouter>
