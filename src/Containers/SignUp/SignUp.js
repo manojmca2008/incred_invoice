@@ -1,17 +1,25 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
+import firebase from 'firebase';
 import './../../Assets/Style/User.scss';
 
 import { signup } from '../../Services/AuthServices';
 import { register, validateOtp } from '../../Services/ApiServices';
 
-import { Email, Password, RequireVal, Phone, ConformPassword} from './../../Helpers/FormValidation';
+import { Email, Password, RequireVal, Phone, ConformPassword } from './../../Helpers/FormValidation';
 
 
 class SignUp extends Component {
   constructor(props) {
     super(props);
+    let self = this;
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user && localStorage.getItem('isLogin')) {
+        self.props.history.push('/create-invoice');
+      } else {
+
+      }
+    });
     this.state = {
       loading: false,
       error_msg: '',
@@ -91,7 +99,7 @@ class SignUp extends Component {
     this.state.signupForm[e.target.name] = e.target.value;
 
     const { name, value } = e.target;
-    
+
     this.setState({
       signupForm: this.state.signupForm,
       SignupFormMes: {
@@ -129,96 +137,96 @@ class SignUp extends Component {
         })
         break;
       case 'cpassword':
-      this.setState({
-        SignupFormMes: {
-          cpassword_msg: ConformPassword(inputvalue)
-        }
-    })
-    break;
+        this.setState({
+          SignupFormMes: {
+            cpassword_msg: ConformPassword(inputvalue)
+          }
+        })
+        break;
       default:
     }
   }
-checkOtp() {
-  //   validateOtp(this.state.otpForm.otp).then(response => {
-  //     console.log(response);
-  //     if(response.result){
+  checkOtp() {
+    //   validateOtp(this.state.otpForm.otp).then(response => {
+    //     console.log(response);
+    //     if(response.result){
 
-  //     }else{
-  //         this.setState({
-  //           error_msg: 'something went wrong.'
-  //         });
-  //     }
-  // }); 
+    //     }else{
+    //         this.setState({
+    //           error_msg: 'something went wrong.'
+    //         });
+    //     }
+    // }); 
 
-  console.log(this.state.otpForm);
-  localStorage.setItem('isLogin', true);
-  //window.location.reload();
-  this.props.history.push('/create-invoice');
-}
-
-render() {
-  if (this.state.otpScreen) {
-    return (
-      <div>
-        <p className="_title">Enter OTP</p>
-        <div className="row">
-          <div className="col">
-            <div className="form-group">
-              <label>Enter OTP</label>
-              <input className="form-control" placeholder="" name="otp" value={this.state.otp} onChange={this.handleInputChangeOtpScreen} />
-            </div>
-            <button type="submit" className="btn btn-primary" onClick={this.checkOtp}>Submit</button>
-          </div>
-        </div>
-      </div>
-    )
-  } else {
-    return (
-      <div className="page_signup section_user">
-        <p className="_title">Sign Up</p>
-        <div className="">
-          <div className="form-group">
-            <label>First Name</label>
-            <input className="form-control" type="text" name="fname" value={this.state.fname} onChange={this.InputHandler} />
-            <p className="mes_error">{this.state.signupForm.fname_msg}</p>
-          </div>
-          <div className="form-group">
-            <label>Last name</label>
-            <input className="form-control" type="text" name="lname" value={this.state.lname} onChange={this.InputHandler} />
-          </div>
-
-          <div className="form-group">
-            <label>Email address</label>
-            <input className="form-control" type="email" name="email" value={this.state.email} onChange={this.InputHandler} />
-            <p className="mes_error">{this.state.signupForm.email_msg}</p>
-          </div>
-
-          <div className="form-group">
-            <label>Phone Number</label>
-            <input className="form-control" type="number" name="phone" value={this.state.phone} onChange={this.InputHandler} />
-            <p className="mes_error">{this.state.signupForm.phone_msg}</p>
-          </div>
-
-          <div className="form-group">
-            <label>Password</label>
-            <input className="form-control" type="password" name="password" value={this.state.password} onChange={this.InputHandler} />
-            <p className="mes_error">{this.state.signupForm.password_msg}</p>
-          </div>
-
-          <div className="form-group _mb30">
-            <label>Confirm Password</label>
-            <input className="form-control" type="password" name="cpassword" value={this.state.cpassword} onChange={this.InputHandler} />
-            <p className="mes_error">{this.state.signupForm.cpassword_msg}</p>
-          </div>
-          <button type="submit" className="btn btn-primary btn_100" onClick={this.handleClick}>Submit</button>
-        </div>
-        <div className="section_registered">
-          <p className="txt_notregistered">Already have an account</p>
-          <p><Link to="/sign-in" className="btn btn-success">login</Link></p>
-        </div>
-      </div>
-    );
+    console.log(this.state.otpForm);
+    localStorage.setItem('isLogin', true);
+    //window.location.reload();
+    this.props.history.push('/create-invoice');
   }
-}
+
+  render() {
+    if (this.state.otpScreen) {
+      return (
+        <div>
+          <p className="_title">Enter OTP</p>
+          <div className="row">
+            <div className="col">
+              <div className="form-group">
+                <label>Enter OTP</label>
+                <input className="form-control" placeholder="" name="otp" value={this.state.otp} onChange={this.handleInputChangeOtpScreen} />
+              </div>
+              <button type="submit" className="btn btn-primary" onClick={this.checkOtp}>Submit</button>
+            </div>
+          </div>
+        </div>
+      )
+    } else {
+      return (
+        <div className="page_signup section_user">
+          <p className="_title">Sign Up</p>
+          <div className="">
+            <div className="form-group">
+              <label>First Name</label>
+              <input className="form-control" type="text" name="fname" value={this.state.fname} onChange={this.InputHandler} />
+              <p className="mes_error">{this.state.signupForm.fname_msg}</p>
+            </div>
+            <div className="form-group">
+              <label>Last name</label>
+              <input className="form-control" type="text" name="lname" value={this.state.lname} onChange={this.InputHandler} />
+            </div>
+
+            <div className="form-group">
+              <label>Email address</label>
+              <input className="form-control" type="email" name="email" value={this.state.email} onChange={this.InputHandler} />
+              <p className="mes_error">{this.state.signupForm.email_msg}</p>
+            </div>
+
+            <div className="form-group">
+              <label>Phone Number</label>
+              <input className="form-control" type="number" name="phone" value={this.state.phone} onChange={this.InputHandler} />
+              <p className="mes_error">{this.state.signupForm.phone_msg}</p>
+            </div>
+
+            <div className="form-group">
+              <label>Password</label>
+              <input className="form-control" type="password" name="password" value={this.state.password} onChange={this.InputHandler} />
+              <p className="mes_error">{this.state.signupForm.password_msg}</p>
+            </div>
+
+            <div className="form-group _mb30">
+              <label>Confirm Password</label>
+              <input className="form-control" type="password" name="cpassword" value={this.state.cpassword} onChange={this.InputHandler} />
+              <p className="mes_error">{this.state.signupForm.cpassword_msg}</p>
+            </div>
+            <button type="submit" className="btn btn-primary btn_100" onClick={this.handleClick}>Submit</button>
+          </div>
+          <div className="section_registered">
+            <p className="txt_notregistered">Already have an account</p>
+            <p><Link to="/sign-in" className="btn btn-success">login</Link></p>
+          </div>
+        </div>
+      );
+    }
+  }
 }
 export default SignUp;

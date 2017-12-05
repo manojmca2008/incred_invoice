@@ -15,7 +15,7 @@ class SignIn extends Component {
       if (user && localStorage.getItem('isLogin')) {
         self.props.history.push('/create-invoice');
       } else {
-        
+
       }
     });
     this.state = {
@@ -40,13 +40,13 @@ class SignIn extends Component {
     let inputvalue = e.target.value;
     const { name, value } = e.target;
     this.setState({ [name]: value });
-      if(e.target.name === 'email'){
-        this.setState({
-          email_errormes : Email(inputvalue)
-        });
-      }else if(e.target.name === 'password'){
-        this.setState({
-          password_errormes: Password(inputvalue)
+    if (e.target.name === 'email') {
+      this.setState({
+        email_errormes: Email(inputvalue)
+      });
+    } else if (e.target.name === 'password') {
+      this.setState({
+        password_errormes: Password(inputvalue)
       });
     }
   }
