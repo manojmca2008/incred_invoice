@@ -17,7 +17,8 @@ class ForgetPassword extends Component {
     const { name, value } = e.target;
     this.setState({
       [name]: value,
-      email_errormes: Email(e.target.value)
+      email_errormes: Email(e.target.value),
+      email_thanksmes: ''
     });
   }
   HandleClick(e) {
@@ -44,11 +45,11 @@ class ForgetPassword extends Component {
     return (
       <div className="section_user">
         <p className="_title">Forgot password</p>
+        <p className="mes_thanksmes">{this.state.email_thanksmes}</p>
         <div className="form-group">
           <label>Email</label>
           <input className="form-control" name="email" type="email" value={this.state.email} onChange={this.InputHandler} />
           <p className="mes_error">{this.state.email_errormes}</p>
-          <p className="mes_thanksmes">{this.state.email_thanksmes}</p>
         </div>
         <button type="submit" className="btn btn-primary btn_100" onClick={(e) => this.HandleClick(e)}>Submit</button>
         <div className="section_btnpassword">
