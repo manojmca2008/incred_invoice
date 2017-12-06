@@ -9,6 +9,7 @@ import TrackPaymentsDue from "./../Containers/TrackPaymentsDue/TrackPaymentsDue"
 import AccountOverview from "./../Containers/AccountOverview/AccountOverview";
 import RecordExpenses from "./../Containers/RecordExpenses/RecordExpenses";
 import ViewPassExpenses from "./../Containers/ViewPassExpenses/ViewPassExpenses";
+import AccountSetting from "./../Containers/AccountSetting/AccountSetting";
 
 import SignIn from "./../Containers/SignIn/SignIn";
 import SignUp from "./../Containers/SignUp/SignUp";
@@ -30,6 +31,7 @@ const Router = () => (
       <Route path='/sign-in' component={SignIn}/>
       <Route path='/sign-up' component={SignUp}/>
       <Route path='/forget-password' component={ForgetPassword}/>
+      <Route path='/account-setting' component={AccountSetting}/>
       <Route exact path='*' component={PageNotFound}/>
     </Switch>
     </div>

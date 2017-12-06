@@ -68,6 +68,13 @@ class SignIn extends Component {
         let result = JSON.stringify(response);
         localStorage.setItem('isLogin', true);
         this.props.history.push('/create-invoice');
+        var userData = {
+          firstName: 'Arpit',
+          lastName: 'Gupta',
+          email: '',
+          phone: ''
+        }
+        localStorage.setItem('userData', JSON.stringify(userData));
         console.log(result);
       }).catch(err => {
         this.setState({

@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import firebase from 'firebase';
-import { Redirect } from 'react-router';
+import UserSettings from './UserSettings';
+
+//import test from 'ava';
+
+import languages from './../Languages/Languages';
+//import translate from './../Languages/LanguagesFunction';
+
 import { signup, logout } from '../../Services/AuthServices';
 import './../../Assets/Style/Header.scss';
+
 
 class Header extends Component {
   constructor(props) {
@@ -13,7 +20,6 @@ class Header extends Component {
       login: '',
       signup: '',
     }
-    this.signOut = this.signOut.bind(this);
     firebase.auth().onAuthStateChanged(function (user) {
       if (user && localStorage.getItem('isLogin')) {
 
@@ -25,21 +31,19 @@ class Header extends Component {
   componentWillMount() {
 
   }
-  signOut() {
-    logout();
-    localStorage.removeItem('isLogin');
-    localStorage.removeItem('userData');
-    <Redirect to='/create-invoice'/>;
-  }
+  
+
+
   render() {
     if (localStorage.getItem('isLogin')) {
-      this.state.login = <Link to="#" className="link_signin" onClick={this.signOut}>Sign Out</Link>;
+      this.state.login = <UserSettings />;
       this.state.signup = '';
     } else {
       this.state.login = <Link to="/sign-in" className="link_signin">Sign In</Link>;
       this.state.signup = <Link to="/sign-up">Sign Up</Link>;
     }
     return (
+    
       <header className="_header">
         <div className="strip_red">
           <div className="container-fluid clearfix">

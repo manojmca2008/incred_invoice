@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i,800');
 
 @import 'Variable';
+@import 'Mixin';
 
 body{
     font-family: 'Open Sans', sans-serif;
@@ -10,6 +11,8 @@ a{text-transform:uppercase;}
 
 p{margin:0;}
 
+
+
 .text-align-right{text-align:right;}
 
 input[type=number]::-webkit-inner-spin-button, 
@@ -18,15 +21,18 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0; 
 }
 
+._m0{margin:0!important;}
 ._mb30{
     margin-bottom:30px;
+}
+
+._mt15{
+    margin-top:15px;
 }
 
 ._title{
     color: $redshade1-color;
     text-transform: uppercase;
-    font-size: 1.5em;
-    padding: 15px 0;
     font-weight: 300;
 }
 
@@ -35,10 +41,9 @@ input[type=number]::-webkit-outer-spin-button {
     cursor:pointer;
     border-radius:0;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    min-width:120px;
+    min-width:160px;
     box-shadow:none!important;
-    font-size:0.875rem;
+    font-size:0.75rem;
     &.btn-primary{
             background: $redshade1-color;
             border-color:$redshade1-color;                      
@@ -139,5 +144,45 @@ input{
     color: $grayshade1-color;
     &:hover{
         color: $redshade2-color;
+    }
+}
+
+.title_invoice{
+    margin:15px 0;
+    font-size:1.125em;
+}
+
+.field_box{
+    background: $redshade1-color;
+    color: $white-color;
+    //height: 100%;
+    text-align: center;
+    font-size: 11px;
+    cursor: pointer;
+    //@include position(relative);
+    padding: 10px;
+    margin-top: 10px;
+    text-transform: uppercase;
+    &:hover:before{
+        /*content: 'EDIT';
+        width: 100%;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.1);
+        font-size: 0.75rem;
+        padding: 3px 0;
+        @include position(absolute, $top:0, $left:0);*/
+    }
+    &.box_invoicelogo{
+        justify-content: center;
+    }
+    &.multiline{
+        height: 51px;
+    }
+    &.ac{
+        height:100%;
+        justify-content: center;
+    }
+    &.data{
+        background: $green-color;
     }
 }

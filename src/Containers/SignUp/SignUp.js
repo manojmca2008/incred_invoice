@@ -68,12 +68,10 @@ class SignUp extends Component {
       signup(this.state.signupForm.email, this.state.signupForm.password).then(response => {
         let result = JSON.stringify(response);
         var userData = {
-          fname: this.state.signupForm.fname,
-          lname: this.state.signupForm.lname,
+          firstName: this.state.signupForm.fname,
+          lastName: this.state.signupForm.lname,
           email: this.state.signupForm.email,
-          phone: this.state.signupForm.phone,
-          password: this.state.signupForm.password,
-          source: 'ws',
+          phone: this.state.signupForm.phone
         }
         //   register(userData).then(response => {
         //     console.log(response);
