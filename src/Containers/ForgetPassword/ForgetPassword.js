@@ -3,10 +3,19 @@ import { Link } from 'react-router-dom';
 import { forgotPassword } from '../../Services/AuthServices';
 import { Email } from './../../Helpers/FormValidation';
 import { RESETTHANKYOU_VALId } from './../../Constant/Messages';
+import firebase from 'firebase';
 
 class ForgetPassword extends Component {
   constructor(props) {
     super(props);
+    let self = this;
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user && localStorage.getItem('isLogin')) {
+        self.props.history.push('/create-invoice');
+      } else {
+
+      }
+    });
     this.state = {
       email: ''
     }
