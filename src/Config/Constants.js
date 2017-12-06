@@ -14,3 +14,5 @@ firebase.initializeApp(firebaseConfig)
 export const firebaseDatabase = firebase.database().ref()
 //export const firebaseAuth = firebase.auth
 export const apiUrl = 'http://api.kalakar.com/api/invoice/';
+export const pubnubPublishKey = 'sub-c-a097327c-cb5f-11e7-9319-62175e58f2c1';
+export const pubnubSubscribeKey = 'pub-c-251a11f2-06a3-4076-b79e-cd049d519101';
