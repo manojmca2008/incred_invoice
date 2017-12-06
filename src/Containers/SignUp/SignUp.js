@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
+import firebase from 'firebase';
 import './../../Assets/Style/User.scss';
 
 import { signup } from '../../Services/AuthServices';
@@ -11,6 +11,14 @@ import { Email, Password, RequireVal, Phone, ConformPassword } from './../../Hel
 class SignUp extends Component {
   constructor(props) {
     super(props);
+    let self = this;
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user && localStorage.getItem('isLogin')) {
+        self.props.history.push('/create-invoice');
+      } else {
+
+      }
+    });
     this.state = {
       loading: false,
       error_msg: '',
