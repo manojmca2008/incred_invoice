@@ -1,65 +1,123 @@
 @import 'Variable';
 @import 'Mixin';
-
-._header{
-    color: $white-color;
-    font-size:0.8125rem;
-    letter-spacing:0.5px;
-    .strip_red{
-        background: $redshade1-color;
-        a:not(.brandlogo){
-            padding: 0 10px;
-            margin: 21px 0;
-            border-right:1px solid $white-color;
-            display: block;
-            line-height:11px;
-        }
-        li:last-child{
-            a{
-               padding-right: 0;
-               border-right: 0;
-            }
-        }
-    }
-    a{
+@media (min-width: 992px) {
+    ._header{
         color: $white-color;
-        &:not(.brandlogo){
+        letter-spacing:0.5px;
+        font-size:11px;
+        .strip_red{
+            background: $redshade1-color;
+            a:not(.brandlogo){
+                padding: 0 10px;
+                margin: 21px 0;
+                border-right:1px solid $white-color;
+                display: block;
+                line-height:11px;
+            }
+            li:last-child{
+                a{
+                   padding-right: 0;
+                   border-right: 0;
+                }
+            }
+        }
+        a{  
+            color: $white-color;
+            &:not(.brandlogo){
+                &:hover{
+                    opacity:0.7;
+                }
+            }
             &:hover{
-                opacity:0.7;
+                text-decoration: none;
+                color:$white-color;
+            }
+            &.brandlogo{
+                margin:14px 0 0;
+                display:inline-block;
+                font-size:1rem;
+                font-weight:300;
+                strong{
+                    font-weight:700;
+                }
             }
         }
-        &:hover{
-            text-decoration: none;
-            color:$white-color;
+        .strip_black{
+            background: $black-color;
+            .row{
+                align-items:center;
+                min-height:35px;
+            }
+            .link_signin{
+                margin-right:15px;
+            }
         }
-        &.brandlogo{
-            margin:6px 0 0;
-            display:inline-block;
-            font-size:1.6875rem;
-            font-weight:300;
-            strong{
-                font-weight:700;
+        .user_dropdown{
+            @include position(relative);cursor: pointer;
+            padding-right: 32px;
+            &:hover{
+                .user_setting{display:block;}
+            }
+            &:before{
+                @include triangle(top, $size: 7px);
+                @include position(absolute, $top:6px, $right:10px);
+                border-top: 7px solid $white-color;
+    
+            }
+            .user_setting{
+                width: 200px;
+                text-align: left;
+                @include position(absolute, $top:0, $right:0);
+                z-index:1;
+                display:none;
+                padding-top: 27px;
+                a{
+                    display:block;
+                    padding:7px 10px;
+                    background: $black-color;
+                }
             }
         }
     }
-    .strip_black{
-        background: $black-color;
-        .row{
-            align-items:center;
-            min-height:35px;
-        }
-        .link_signin{
-            margin-right:15px;
-        }
-    }
+}
 
-    .user_dropdown{
-        @include position(relative)
-        .user_setting{
-            @include position(absolute, $top:0, $left:0);
-            top: 0;
-            right: 0;
-            a{display:block;}
+@media (max-width: 991px) {
+    ._header{
+        border-bottom: 1px solid $redshade1-color;
+        color: $grayshade4-color;
+        text-align: right;
+        padding:12px 0 18px;
+        .strip_black{
+            font-size:8px;
+            line-height:4px;
+        }
+        .header_dropdown{
+            background: $redshade1-color;
+            display:none;
+            text-align: left;
+            @include position(absolute, $top:59px, $left:0);
+            z-index: 2;
+            min-width: 200px;
+            height: calc(100% - 60px);
+           a{
+               color: $white-color;
+               border-bottom: 1px solid $white-color;
+               display:block;
+               padding: 10px 15px;
+               font-size: 0.75rem;
+           }
+        }
+    }
+}
+
+@media (min-width: 1280px) {
+    ._header{
+        font-size:0.8125rem;
+        a{
+            &.brandlogo {
+                font-size:1.6875rem;
+                margin-top:6px;
+            }
         }
     }
 }

@@ -142,20 +142,22 @@ class SignUp extends Component {
       return (
         <div className="page_otp section_user">
           <p className="_title">Enter OTP</p>
-          <div className="form-group">
-            <label>Enter OTP</label>
-            <input className="form-control" placeholder="" name="otp" value={this.state.otp} onChange={this.handleInputChangeOtpScreen} />
-            <p className="mes_error">{this.state.OtpValidMes.Otp_msg}</p>
-            <p className="mes_error api_error">{this.state.error_msg}</p>
+          <div className="form_user">
+            <div className="form-group">
+              <label>Enter OTP</label>
+              <input className="form-control" placeholder="" name="otp" value={this.state.otp} onChange={this.handleInputChangeOtpScreen} />
+              <p className="mes_error">{this.state.OtpValidMes.Otp_msg}</p>
+              <p className="mes_error api_error">{this.state.error_msg}</p>
+            </div>
+            <button type="submit" className="btn btn-primary" onClick={this.checkOtp}>Submit</button>
           </div>
-          <button type="submit" className="btn btn-primary" onClick={this.checkOtp}>Submit</button>
         </div>
       )
     } else {
       return (
         <div className="page_signup section_user">
           <p className="_title">Sign Up</p>
-          <div className="">
+          <div className="form_user">
             <div className="form-group">
               <label>First Name</label>
               <input className="form-control" type="text" name="fname" value={this.state.fname} onChange={this.InputHandler} />
@@ -167,7 +169,7 @@ class SignUp extends Component {
             </div>
 
             <div className="form-group">
-              <label>Email address</label>
+              <label>Email Id</label>
               <input className="form-control" type="email" name="email" value={this.state.email} onChange={this.InputHandler} />
               <p className="mes_error">{this.state.SignupFormMes.email_msg}</p>
             </div>
@@ -184,13 +186,17 @@ class SignUp extends Component {
               <p className="mes_error">{this.state.SignupFormMes.password_msg}</p>
             </div>
 
-            <div className="form-group _mb30">
+            <div className="form-group">
               <label>Confirm Password</label>
               <input className="form-control" type="password" name="cpassword" value={this.state.cpassword} onChange={this.InputHandler} />
               <p className="mes_error">{this.state.SignupFormMes.cpassword_msg}</p>
             </div>
+            <div className="txt_terms">
+              <label className="custom-control custom-checkbox"><input type="checkbox" className="custom-control-input" name="rememberpassword" checked={this.state.isChecked} /><span className="custom-control-indicator"></span></label> By registering, you agree to our <Link to="/terms-of-service">Terms of Service</Link> and <Link to="/privacy-policy">Privacy Policy</Link>.</div> 
             <p className="mes_error api_error">{this.state.error_msg}</p>
-            <button type="submit" className="btn btn-primary btn_100" onClick={this.handleClick}>Submit</button>
+            <p className="text-right">
+              <button type="submit" className="btn btn-primary" onClick={this.handleClick}>Register</button>
+            </p>
           </div>
           <div className="section_registered">
             <p className="txt_notregistered">Already have an account</p>

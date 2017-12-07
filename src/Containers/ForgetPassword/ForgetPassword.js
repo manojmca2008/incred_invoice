@@ -53,16 +53,18 @@ class ForgetPassword extends Component {
   render() {
     return (
       <div className="section_user">
-        <p className="_title">Forgot password</p>
+        <p className="_title">Lost password</p>
+        <div className="form_user">
         <p className="mes_thanksmes">{this.state.email_thanksmes}</p>
         <div className="form-group">
           <label>Email</label>
           <input className="form-control" name="email" type="email" value={this.state.email} onChange={this.InputHandler} />
           <p className="mes_error">{this.state.email_errormes}</p>
         </div>
-        <button type="submit" className="btn btn-primary btn_100" onClick={(e) => this.HandleClick(e)}>Submit</button>
+        <p className="text-center"><button type="submit" className="btn btn-primary" onClick={(e) => this.HandleClick(e)}>Submit</button></p>
+        </div>
         <div className="section_btnpassword">
-          <p><Link to="/sign-in" className="btn btn-success">login</Link>  <Link to="/sign-up" className="btn btn-success">Sign Up</Link></p>
+          <p><Link to="/sign-in" className="btn btn-success">login</Link>  <Link to="/register" className="btn btn-success">Sign Up</Link></p>
         </div>
       </div>
     );

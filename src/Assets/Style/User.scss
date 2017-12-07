@@ -1,39 +1,20 @@
 @import 'Variable';
+@import 'Mixin';
 
 .section_user{
-    max-width:350px;
-    margin:0 auto;
-    padding: 20px 0;
-    .btn{
-        font-size:0.875rem;
-    }
-    .txt_lost_password{
-        border-top: 1px solid $grayshade3-color;
-        padding-top:10px;
-        margin-top: 30px;
-        text-align:center;
-        a{
-            font-size: 0.75rem;
-            font-weight: 700;
-        }
-    }
-    ._title{
-        font-size: 1.5em;
-        padding: 15px 0;
-    }
     .btn_100{
         width:100%;
     }
     .section_registered{
-        border-top: 1px solid $grayshade3-color;    
-        padding-top: 10px;
-        margin-top: 24px;
+        border-top: 1px solid $grayshade3-color; 
+        padding:15px 0;
+        margin-top: 25px;
         text-align: center;
         .txt_notregistered{
             font-size: 0.875rem;
-            padding-bottom: 15px;
+            padding-bottom: 10px;
             //text-transform: uppercase;
-            color:$grayshade1-color;
+            //color:$grayshade1-color;
         }
     }
     .mes_thanksmes{
@@ -44,18 +25,116 @@
             display:none;
         }
     }
-    &.section_user{
-        .section_registered{
-            margin-top: 10px;
-            padding-top: 24px;
-        }
-    }
     .section_btnpassword{
-        margin-top: 30px;
+        margin-top: 20px;
         border-top: 1px solid $grayshade3-color;
-        padding: 30px 0;
+        padding: 20px 0;
         text-align: center;
     }
+    .txt_terms{
+        font:11px arial;
+        padding:0 0 30px; 
+        @include position(relative);
+        a{
+            text-transform:capitalize;
+        }
+        .custom-checkbox{
+            @include position(absolute, $top:-5px, $left:0);
+        }
+    }
+    &.page_signup{
+        .txt_terms{
+            padding-left:25px;
+        }
+    }
+
+    .form_addaccount{
+        @include position(relative);
+        input{
+            padding-right:64px;
+        }
+        .btn{
+            @include position(absolute, $top:0, $right:0);
+            min-width: initial;
+        }
+        
+    }
+
+    .style_flag{
+        display:block;
+        border:1px solid $grayshade5-color;
+        padding:0;
+        min-height: 35px;
+        line-height: 33px;
+        .country-label{
+            padding-left: 0;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+        }
+        img{
+            display:block;
+            float: right;
+            margin-top:1px;
+        }
+        .selected--flag--option{
+            padding:0 35px 0 11px;
+        }
+        .flag-options{
+            border-radius: 0;
+            border-color:$grayshade5-color;
+            margin-top:0;
+            width:calc(100% + 2px);
+            left: -1px;
+        }
+        .arrow-down {
+            @include position(absolute, $top:12px, $right:7px);
+            @include triangle(top, $size: 7px);
+            border-top: 7px solid $grayshade1-color;
+            padding: 0;
+            font-size: 0;
+        }
+        
+    }
+
+    &.page_account_setting {
+        .btn-white{
+            display: block;
+            text-align: left;
+            margin-bottom: 1rem;
+            @include position(relative);
+            &:after{
+                @include triangle(left, $size: 7px);
+                @include position(absolute, $top:10px, $right:10px);
+                border-left: 7px solid $grayshade1-color;
+            }
+         }
+         .userbtn_account_setting{
+             padding:30px 0 20px;
+         }
+    }
 }
-
-
+@media (min-width: 992px) {
+    .section_user{
+        max-width:370px;
+        margin:0 auto;
+        padding: 20px 0;
+        ._title{
+            font-size: 1.5em;
+            padding: 15px 0;
+        }
+        ._subtitle{
+            font-size: 1.5em;
+            padding: 15px 0;
+        }
+        .btn{
+            font-size:0.875rem;
+        }
+    }
+}
+@media (max-width: 991px) {
+    .section_user{
+        .form_user{
+            padding:15px 15px 0;
+        }
+    }
+}

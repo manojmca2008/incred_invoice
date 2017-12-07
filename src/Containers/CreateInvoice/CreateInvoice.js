@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 class CreateInvoice extends Component {
   render() {
     return (
+      <div className="container-fluid">
       <div className="row">
         <div className="col-md-8">
           <div className="d-flex align-items-center title_invoice">
@@ -49,6 +50,7 @@ class CreateInvoice extends Component {
           </div>
         </div>
         <div className="col"></div>
+      </div>
       </div>
     );
   }
