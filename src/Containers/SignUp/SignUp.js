@@ -79,20 +79,23 @@ class SignUp extends Component {
           firstName: this.state.signupForm.fname,
           lastName: this.state.signupForm.lname,
           email: this.state.signupForm.email,
-          phone: this.state.signupForm.phone
+          phone: this.state.signupForm.phone,
+          password: this.state.signupForm.password
         }
-        //   register(userData).then(response => {
-        //     console.log(response);
-        //     if(response.result){
-        //         this.setState({ reg_error: '' });
-        //         var self = this;
-        //     }else{
-        //         this.setState({
-        //           error_msg: 'something went wrong.'
-        //         });
-        //     }
-        // }); 
-        localStorage.setItem('userData', JSON.stringify(userData));
+          register(userData).then(response => {
+            console.log(response);
+            if(response.result){
+                this.setState({ reg_error: '' });
+                delete userData['password']; 
+                //userData['password'] = '';
+                localStorage.setItem('userData', JSON.stringify(userData));
+                var self = this;
+            }else{
+                this.setState({
+                  error_msg: 'something went wrong.'
+                });
+            }
+        });
         this.setState({ otpScreen: true });
       }).catch(err => {
         this.setState({
