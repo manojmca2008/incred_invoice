@@ -40,7 +40,7 @@ class Header extends Component {
       this.state.signup = '';
     } else {
       this.state.login = <Link to="/sign-in" className="link_signin">Sign In</Link>;
-      this.state.signup = <Link to="/sign-up">Sign Up</Link>;
+      this.state.signup = <Link to="/register">REGISTER</Link>;
     }
     return (
     
@@ -48,7 +48,7 @@ class Header extends Component {
         <div className="strip_red">
           <div className="container-fluid clearfix">
             <Link to="/create-invoice" className="brandlogo"><strong>INCRED</strong> INVOICES</Link>
-            <ul className="nav nav-pills float-right">
+            <ul className="nav nav-pills float-lg-right header_dropdown">
               <li className="nav-item"><Link to="/create-invoice">Create Invoice</Link></li>
               <li className="nav-item"><Link to="/view-past-invoice">View Past Invoice</Link></li>
               <li className="nav-item"><Link to="/track-payments-due">Track Payments Due</Link></li>
@@ -62,7 +62,7 @@ class Header extends Component {
           <div className="container-fluid">
             <div className="row">
               <div className="col">THE PROFESSIONAL GST INVOICING AND EXPENSE APPLICATION</div>
-              <div className="col text-align-right">
+              <div className="col text-right ad-md-hide">
                 {this.state.login}
                 {this.state.signup}
               </div>

@@ -16,12 +16,15 @@ import SignUp from "./../Containers/SignUp/SignUp";
 import ForgetPassword from "./../Containers/ForgetPassword/ForgetPassword";
 import PageNotFound from "./../Containers/PageNotFound/PageNotFound";
 
+import PrivacyPolicy from "./../Containers/PrivacyPolicy/PrivacyPolicy";
+import TermOfService from "./../Containers/TermOfService/TermOfService";
+
 const Router = () => (
   <div>
     <Header />
-    <div className="container-fluid">
+    <div>
     <Switch>
-      <Route exact path='/' component={Home}/>
+      <Route exact path='/' component={CreateInvoice}/>
       <Route path='/create-invoice' component={CreateInvoice}/>
       <Route path='/view-past-invoice' component={ViewPastInvoice}/>
       <Route path='/track-payments-due' component={TrackPaymentsDue}/>
@@ -29,9 +32,11 @@ const Router = () => (
       <Route path='/record-expenses' component={RecordExpenses}/>
       <Route path='/view-pass-expenses' component={ViewPassExpenses}/>
       <Route path='/sign-in' component={SignIn}/>
-      <Route path='/sign-up' component={SignUp}/>
+      <Route path='/register' component={SignUp}/>
       <Route path='/forget-password' component={ForgetPassword}/>
       <Route path='/account-setting' component={AccountSetting}/>
+      <Route path='/privacy-policy' component={PrivacyPolicy}/>
+      <Route path='/terms-of-service' component={TermOfService}/>
       <Route exact path='*' component={PageNotFound}/>
     </Switch>
     </div>

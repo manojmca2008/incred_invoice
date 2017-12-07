@@ -51,31 +51,30 @@ class SignIn extends Component {
     }
   }
 
-  RememberPassword() {
+  /*RememberPassword() {
     const { rememberpassword } = this.state;
     console.log(rememberpassword)
-  }
+  }*/
 
 
   HandleClick(e) {
     e.preventDefault();
     this.LoginValid();
-    this.RememberPassword();
+    //this.RememberPassword();
     this.setState({ submitted: true });
     const { email, password } = this.state;
     if (email && password) {
       login(email, password).then(response => {
         let result = JSON.stringify(response);
         localStorage.setItem('isLogin', true);
-        this.props.history.push('/create-invoice');
-        var userData = {
+        let userData = {
           firstName: 'Arpit',
           lastName: 'Gupta',
           email: '',
           phone: ''
         }
         localStorage.setItem('userData', JSON.stringify(userData));
-        console.log(result);
+        this.props.history.push('/create-invoice');
       }).catch(err => {
         this.setState({
           error_msg: err.message
@@ -87,11 +86,11 @@ class SignIn extends Component {
     return (
       <div className="page_signin section_user">
         <p className="_title">Sign In</p>
-        <div>
+        <div className="form_user">
 
           <div className="form_login">
             <div className="form-group">
-              <label>Email</label>
+              <label>Email Id</label>
               <input type="text" className="form-control" name="email" onChange={this.InputHandler} />
               <p className="mes_error">{this.state.email_errormes}</p>
             </div>
@@ -101,15 +100,18 @@ class SignIn extends Component {
               <p className="mes_error">{this.state.password_errormes}</p>
             </div>
             <p className="mes_error api_error">{this.state.error_msg}</p>
-            <div className="form-check">
+            {/*<div className="form-check">
               <label className="custom-control custom-checkbox ">
                 <input type="checkbox" className="custom-control-input" name="rememberpassword" checked={this.state.isChecked} />
                 <span className="custom-control-indicator"></span>
                 Remember Me
                 </label>
-            </div>
-
-            <button type="submit" className="btn btn-primary btn_100" onClick={this.HandleClick}>Login</button>
+            </div>*/}
+            <p className="txt_terms">By continuing, you agree to our <Link to="/terms-of-service">Terms of Service</Link> and <Link to="/privacy-policy">Privacy Policy</Link>.</p>
+            <p className="text-center">
+              <button type="submit" className="btn btn-primary _mr10" onClick={this.HandleClick}>Login</button>
+              <Link to="/forget-password" className="btn btn-primary">Lost your password?</Link>
+            </p>
 
             {/* <div className="section_socialmedia hide">
                 <p className="txt_Signin"><strong>Or Sign in With Social Media</strong>You can also sign in with your social media accounts.</p>
@@ -119,13 +121,9 @@ class SignIn extends Component {
                   <a href="javascript:void(0)" className="btn _google">google+</a></div>
               </div>*/}
           </div>
-
-          <p className="txt_lost_password">
-            <Link to="/forget-password" className="btn-link">Forgot your password?</Link>
-          </p>
           <div className="section_registered">
             <p className="txt_notregistered">Not registered yet, Register Now</p>
-            <p><Link to="/sign-up" className="btn btn-success">Sign Up</Link></p>
+            <p><Link to="/register" className="btn btn-success">Sign Up</Link></p>
           </div>
         </div>
       </div>

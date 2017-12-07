@@ -5,15 +5,19 @@
 
 body{
     font-family: 'Open Sans', sans-serif;
+    overflow-y: scroll;
 }
 
-a{text-transform:uppercase;}
+a{
+    text-transform:uppercase;
+    color:$redshade1-color;
+    &:hover{
+        color:$redshade2-color;
+    }
+}
 
 p{margin:0;}
 
-
-
-.text-align-right{text-align:right;}
 
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
@@ -21,7 +25,10 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0; 
 }
 
+._p20{padding:20px;}
+
 ._m0{margin:0!important;}
+
 ._mb30{
     margin-bottom:30px;
 }
@@ -30,20 +37,19 @@ input[type=number]::-webkit-outer-spin-button {
     margin-top:15px;
 }
 
-._title{
-    color: $redshade1-color;
-    text-transform: uppercase;
-    font-weight: 300;
+._mr10{
+    margin-right: 10px;
 }
 
+.disable{pointer-events:none;opacity:0.5;cursor:none;}
 
 .btn{
     cursor:pointer;
     border-radius:0;
     text-transform: uppercase;
-    min-width:160px;
     box-shadow:none!important;
     font-size:0.75rem;
+    min-width: 100px;
     &.btn-primary{
             background: $redshade1-color;
             border-color:$redshade1-color;                      
@@ -117,13 +123,16 @@ input{
     label{
         margin-bottom:5px;
         text-transform:uppercase;
+        font-size: 0.75rem;
     }
 }
 .form-control{
     border-radius:0;
     font-size: 0.875rem;
+    
     &:focus{
         border-color:$grayshade1-color;
+        box-shadow: none;
     }
 }
 .form-check{
@@ -137,6 +146,14 @@ input{
     }
     .custom-control-input:checked ~ .custom-control-indicator{
         background-color: $redshade1-color;
+    }
+}
+
+.btn-white{
+    border:1px solid $grayshade5-color;
+    color: $blackshade1-color;
+    &:hover{
+        color: $black-color;
     }
 }
 
@@ -184,5 +201,38 @@ input{
     }
     &.data{
         background: $green-color;
+    }
+}
+
+._title{
+    text-transform: uppercase;
+}
+._subtitle{
+    text-transform: uppercase;
+}
+@media (min-width: 992px) {
+    ._title{
+        color: $redshade1-color;
+        font-weight: 300;
+    }
+    .ad-md-show{
+        display: none;
+    }
+}
+@media (max-width: 991px) {
+    ._title{
+        background: $redshade1-color;
+        color: $white-color;
+        padding:8px 15px;
+        font-size: 0.8125rem;
+    }
+    ._subtitle{
+        font-size: 1rem;
+    }
+    .ad-md-hide{
+        display:none;
+    }
+    .ad-md-show{
+        display:block;
     }
 }
