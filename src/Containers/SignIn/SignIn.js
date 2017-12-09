@@ -5,6 +5,7 @@ import './../../Assets/Style/User.scss';
 
 import { Email, Password } from './../../Helpers/FormValidation';
 import { login } from '../../Services/AuthServices';
+import { signin } from '../../Services/ApiServices';
 
 
 class SignIn extends Component {
@@ -51,30 +52,28 @@ class SignIn extends Component {
     }
   }
 
-  /*RememberPassword() {
-    const { rememberpassword } = this.state;
-    console.log(rememberpassword)
-  }*/
-
-
   HandleClick(e) {
     e.preventDefault();
     this.LoginValid();
-    //this.RememberPassword();
     this.setState({ submitted: true });
     const { email, password } = this.state;
     if (email && password) {
       login(email, password).then(response => {
-        let result = JSON.stringify(response);
-        localStorage.setItem('isLogin', true);
-        let userData = {
-          firstName: 'Arpit',
-          lastName: 'Gupta',
-          email: '',
-          phone: ''
+        let data = {
+          email: email,
         }
-        localStorage.setItem('userData', JSON.stringify(userData));
-        this.props.history.push('/create-invoice');
+        signin(data).then(response => {
+          if(response.result){
+            localStorage.setItem('isLogin', true);
+            localStorage.setItem('userDetails', JSON.stringify(response.data.userDetails));
+            localStorage.setItem('userAccountDetails', JSON.stringify(response.data.accountDetails));
+            this.props.history.push('/create-invoice');
+          }else{
+              this.setState({
+                error_msg: 'something went wrong.'
+              });
+          }
+      });
       }).catch(err => {
         this.setState({
           error_msg: err.message

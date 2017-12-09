@@ -21,6 +21,13 @@ export function register(data) {
     return err;
   });
 }
+export function signin(data) {
+  return axios.post(apiUrl + 'signin', data).then(response => {
+    return response.data;
+  }).catch(err => {
+    return err;
+  });
+}
 
 export function checkLogin(data){
   return axios.post(apiUrl + 'signin', data).then(response => {
@@ -29,11 +36,30 @@ export function checkLogin(data){
     return err;
   });
 }
-export function getInvoices(invoiceId) {
-  return axios.get(apiUrl + 'invoices')
+export function getUserAccounts(userId) {
+  return axios.get(apiUrl + 'user-accounts?userId='+userId)
     .then(response => {
       return response.data;
     });
 }
-
+export function getUserAccountDetails(userId) {
+  return axios.get(apiUrl + 'user-accounts/'+userId)
+    .then(response => {
+      return response.data;
+    });
+}
+export function addAccount(data) {
+  return axios.post(apiUrl + 'user-accounts', data).then(response => {
+    return response.data;
+  }).catch(err => {
+    return err;
+  });
+}
+export function resendOtp(data) {
+  return axios.post(apiUrl + 'resend-otp', data).then(response => {
+    return response.data;
+  }).catch(err => {
+    return err;
+  });
+}
 
