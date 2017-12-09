@@ -5,13 +5,15 @@ import { Redirect } from 'react-router';
 
 class UserSettings extends Component {
   signOut() {
-    localStorage.removeItem('isLogin');
-    localStorage.removeItem('userData');
+    localStorage.clear();
+    //localStorage.removeItem('isLogin');
+    //localStorage.removeItem('userData');
     logout();
     <Redirect to='/create-invoice'/>;
   }
   render() {
-    const userData = JSON.parse(localStorage.getItem('userData'));
+    const userData = JSON.parse(localStorage.getItem('userDetails'));
+    console.log(userData);
     return (
       <div className="user_dropdown">
         { userData.firstName + ' ' + userData.lastName }

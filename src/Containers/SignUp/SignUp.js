@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import firebase from 'firebase';
 import './../../Assets/Style/User.scss';
-
 import { signup } from '../../Services/AuthServices';
-import { register, validateOtp } from '../../Services/ApiServices';
-
+import { register, validateOtp, resendOtp } from '../../Services/ApiServices';
 import { Email, Password, RequireVal, Phone, ConformPassword } from './../../Helpers/FormValidation';
 
 class SignUp extends Component {
@@ -23,14 +21,15 @@ class SignUp extends Component {
       loading: false,
       error_msg: '',
       otpScreen: false,
+      userDetails: [],
+      userAccountDetails: [],
       signupForm: {
-        fname: '',
-        lname: '',
+        firstName: '',
+        lastName: '',
         email: '',
         phone: '',
         password: '',
         cpassword: '',
-        source: ''
       },
       SignupFormMes: {
 
@@ -49,11 +48,10 @@ class SignUp extends Component {
     this.checkOtp = this.checkOtp.bind(this);
   }
 
-
   SignUpValid() {
     this.setState({
       SignupFormMes: {
-        fname_msg: RequireVal(this.state.signupForm.fname),
+        fname_msg: RequireVal(this.state.signupForm.firstName),
         email_msg: Email(this.state.signupForm.email),
         phone_msg: Phone(this.state.signupForm.phone),
         password_msg: Password(this.state.signupForm.password),
@@ -71,29 +69,23 @@ class SignUp extends Component {
   handleClick(e) {
     e.preventDefault();
     this.SignUpValid();
-    const { fname, email, phone, password, cpassword } = this.state.signupForm;
-    if (fname && email && phone && password && cpassword) {
+    const { firstName, email, phone, password, cpassword } = this.state.signupForm;
+    if (firstName && email && phone && password && cpassword) {
       signup(this.state.signupForm.email, this.state.signupForm.password).then(response => {
-        let result = JSON.stringify(response);
-        var userData = {
-          firstName: this.state.signupForm.fname,
-          lastName: this.state.signupForm.lname,
-          email: this.state.signupForm.email,
-          phone: this.state.signupForm.phone
-        }
-        //   register(userData).then(response => {
-        //     console.log(response);
-        //     if(response.result){
-        //         this.setState({ reg_error: '' });
-        //         var self = this;
-        //     }else{
-        //         this.setState({
-        //           error_msg: 'something went wrong.'
-        //         });
-        //     }
-        // }); 
-        localStorage.setItem('userData', JSON.stringify(userData));
-        this.setState({ otpScreen: true });
+        console.log(this.state.signupForm);
+        register(this.state.signupForm).then(response => {
+          if (response.result) {
+            this.setState({
+              reg_error: '',
+              userDetails: response.data.userDetails,
+              userAccountDetails: response.data.accountDetails
+            });
+            this.setState({ otpScreen: true });
+            this.setState({
+              error_msg: 'something went wrong.'
+            });
+          }
+        });
       }).catch(err => {
         this.setState({
           error_msg: err.message
@@ -124,14 +116,32 @@ class SignUp extends Component {
     //           error_msg: 'something went wrong.'
     //         });
     //     }
-    // }); 
+    // });
     this.OtpValid();
     const { otp } = this.state.otpForm;
     if (otp) {
       localStorage.setItem('isLogin', true);
+      localStorage.setItem('userDetails', JSON.stringify(this.state.userDetails));
+      localStorage.setItem('userAccountDetails', JSON.stringify(this.state.userAccountDetails));
       this.props.history.push('/create-invoice');
     }
     console.log(this.state.otpForm);
+  }
+  resendOtp() {
+    alert('sada');
+    let data = {
+      email: this.state.signupForm.email,
+      phone: this.state.signupForm.phone
+
+    }
+    resendOtp(data).then(response => {
+      if (response.result) {
+      } else {
+        this.setState({
+          error_msg: 'something went wrong.'
+        });
+      }
+    });
   }
 
   render() {
@@ -147,6 +157,7 @@ class SignUp extends Component {
               <p className="mes_error api_error">{this.state.error_msg}</p>
             </div>
             <button type="submit" className="btn btn-primary" onClick={this.checkOtp}>Submit</button>
+            <button type="submit" className="btn btn-primary" onClick={this.resendOtp.bind(this)}>Resend</button>
           </div>
         </div>
       )
@@ -157,12 +168,12 @@ class SignUp extends Component {
           <div className="form_user">
             <div className="form-group">
               <label>First Name</label>
-              <input className="form-control" type="text" name="fname" value={this.state.fname} onChange={this.InputHandler} />
+              <input className="form-control" type="text" name="firstName" value={this.state.firstName} onChange={this.InputHandler} />
               <p className="mes_error">{this.state.SignupFormMes.fname_msg}</p>
             </div>
             <div className="form-group">
               <label>Last name</label>
-              <input className="form-control" type="text" name="lname" value={this.state.lname} onChange={this.InputHandler} />
+              <input className="form-control" type="text" name="lastName" value={this.state.lastName} onChange={this.InputHandler} />
             </div>
 
             <div className="form-group">
@@ -189,7 +200,7 @@ class SignUp extends Component {
               <p className="mes_error">{this.state.SignupFormMes.cpassword_msg}</p>
             </div>
             <div className="txt_terms">
-              <label className="custom-control custom-checkbox"><input type="checkbox" className="custom-control-input" name="rememberpassword" checked={this.state.isChecked} /><span className="custom-control-indicator"></span></label> By registering, you agree to our <Link to="/terms-of-service">Terms of Service</Link> and <Link to="/privacy-policy">Privacy Policy</Link>.</div> 
+              <label className="custom-control custom-checkbox"><input type="checkbox" className="custom-control-input" name="rememberpassword" checked={this.state.isChecked} /><span className="custom-control-indicator"></span></label> By registering, you agree to our <Link to="/terms-of-service">Terms of Service</Link> and <Link to="/privacy-policy">Privacy Policy</Link>.</div>
             <p className="mes_error api_error">{this.state.error_msg}</p>
             <p className="text-right">
               <button type="submit" className="btn btn-primary" onClick={this.handleClick}>Register</button>
