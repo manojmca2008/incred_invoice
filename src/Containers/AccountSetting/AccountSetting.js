@@ -103,16 +103,22 @@ class AccountSetting extends Component {
           <Link to="/register" className="btn btn-primary">REGISTER</Link>
         </p>
         <div className="form_user">
-          <div className={'form-group' + this.state.isLogin ? 'disable' : ''}>
+          <div className={'form-group' + this.state.isLogin ? '' : 'disable'}>
           
             <label>SELECT ACCOUNT</label>
             <select id={this.props.id}
               className='form-control'
               value={this.state.accountId}
               onChange={this.selectAccount.bind(this)}>
+              
               {options}
-              <option value='1'>Guest
-              </option>
+
+              { 
+                //console.log((localStorage.getItem('isLogin'))
+                (localStorage.getItem('isLogin')) ? '<option value="1">Guest</option>' : ''
+              }
+
+              
             </select>
           </div>
 
@@ -137,8 +143,8 @@ class AccountSetting extends Component {
             <ReactFlagsSelect defaultCountry="IN" onSelect={this.onSelectFlag} className="style_flag" />
           </div>
 
-          <a href="javascript:void(0)" className="btn btn-white disable">YOUR PAYMENTS</a>
-          <a href="javascript:void(0)" className="btn btn-white disable">EDIT YOUR BASIC DETAILS</a>
+          <a href="javascript:void(0)" className= {'btn btn-white ' + ((this.state.isLogin) ? '' : 'disable')} >YOUR PAYMENTS</a>
+          <a href="javascript:void(0)" className= {'btn btn-white ' + ((this.state.isLogin) ? '' : 'disable')} >EDIT YOUR BASIC DETAILS</a>
         </div>
       </div>
     );

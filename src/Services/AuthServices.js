@@ -2,7 +2,7 @@
 import firebase from 'firebase';
 
 import React, { Component } from 'react';
-import { Redirect } from 'react-router';
+import {Route, Redirect } from 'react-router';
 
 //class AuthServices extends Component {
   export function  signup(email ,password) {
@@ -75,8 +75,13 @@ import { Redirect } from 'react-router';
   }
 
  export function logout() {
-  <Redirect to='/create-invoice'/>;  
-    firebase.auth().signOut();  
+    /*<Route exact path="/" render={() => (
+      <Redirect to="/create-invoice"/>
+    )}/>*/
+    firebase.auth().signOut(); 
+    window.location.reload();
+    console.log('d');
+     
    
   }
  export function forgotPassword(email){

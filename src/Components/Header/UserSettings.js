@@ -13,7 +13,6 @@ class UserSettings extends Component {
   }
   render() {
     const userData = JSON.parse(localStorage.getItem('userDetails'));
-    console.log(userData);
     return (
       <div className="user_dropdown">
         { (userData) ? userData.firstName + ' ' + userData.lastName : 'Guest' }

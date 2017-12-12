@@ -195,7 +195,7 @@ class SignUp extends Component {
           <input className="form-control input_enterotp" type="password" maxLength="6" placeholder="******" name="otp" onChange={this.handleInputChangeOtpScreen} />
           <p className="mes_error">{this.state.OtpValidMes.Otp_msg}</p>
           <p className="mes_error api_error">{this.state.error_msg}</p>
-          <button type="submit" className={'btn btn-primary _mr15' + ((this.state.loading) ? 'btndisabled' : '') } onClick={this.checkOtp}>Confirm</button>
+          <button type="submit" className={'btn btn-primary _mr15 ' + ((this.state.loading) ? 'btndisabled' : '') } onClick={this.checkOtp}>Confirm</button>
           <button type="submit" className="btn btn-primary" onClick={this.resendOtp.bind(this)}>Resend</button>
         </div>
       )
