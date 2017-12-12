@@ -5,6 +5,7 @@ SIXDIGIT_VALId = 'you have to enter at least 6 digit!',
 RESETTHANKYOU_VALId =  'We have just sent you an email with password reset instructions.',
 PHONENOPRANK_VALId = 'We promise; No prank calls',
 PHONEFORMAT_VALId = 'You know, there\'s a cadence to phone numbers. They usually go xxx-xxx-xxxx',
-PHONEMATCH_VALId = 'These passwords don\'t match. Try again?';
+PHONEMATCH_VALId = 'These passwords don\'t match. Try again?',
+TC_VALId = 'Please agree our Terms Of Service and Privacy Policy.';
 
-export{BLANK_VALId, FIRSTNAME_VALId, EMAIL_VALId, PHONEFORMAT_VALId, SIXDIGIT_VALId, RESETTHANKYOU_VALId,PHONENOPRANK_VALId, PHONEMATCH_VALId}
+export{BLANK_VALId, FIRSTNAME_VALId, EMAIL_VALId, PHONEFORMAT_VALId, SIXDIGIT_VALId, RESETTHANKYOU_VALId,PHONENOPRANK_VALId, PHONEMATCH_VALId, TC_VALId}

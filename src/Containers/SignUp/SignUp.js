@@ -4,7 +4,7 @@ import firebase from 'firebase';
 import './../../Assets/Style/User.scss';
 import { signup } from '../../Services/AuthServices';
 import { register, validateOtp, resendOtp } from '../../Services/ApiServices';
-import { Email, Password, RequireVal, Phone, ConformPassword } from './../../Helpers/FormValidation';
+import { Email, Password, RequireVal, Phone, ConformPassword, CheckboxTrue } from './../../Helpers/FormValidation';
 
 
 class SignUp extends Component {
@@ -21,10 +21,13 @@ class SignUp extends Component {
     this.state = {
       loading: false,
       error_msg: '',
+      
       otpScreen: false,
       userDetails: [],
       userAccountDetails: [],
       userId : '',
+      checkterms: false,
+
       signupForm: {
         firstName: '',
         lastName: '',
@@ -58,22 +61,20 @@ class SignUp extends Component {
         email_msg: Email(this.state.signupForm.email),
         phone_msg: Phone(this.state.signupForm.phone),
         password_msg: Password(this.state.signupForm.password),
-        cpassword_msg: ConformPassword(this.state.signupForm.password, !this.state.signupForm.cpassword)
+        cpassword_msg: ConformPassword(this.state.signupForm.password, this.state.signupForm.cpassword),
+        checkterms_msg : CheckboxTrue(this.state.checkterms)
       }
     })
   }
+  
   InputHandler(e) {
    this.state.signupForm[e.target.name] = e.target.value;
    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
     this.setState({
       signupForm: this.state.signupForm,
+      checkterms : value
     });
     this.SignUpValid();
-    if(e.target.name === 'checkterms'){
-      this.setState({
-        [e.target.name]: value
-      });
-    }
   }
 
   handeOnChange(value) {
@@ -83,14 +84,17 @@ class SignUp extends Component {
  }
 
   handleClick(e) {
+
     e.preventDefault();
     this.SignUpValid();
     const { firstName, email, phone, password, cpassword } = this.state.signupForm;
-    this.setState.loading = false
-    if (firstName && email && phone && password && cpassword) {
-      this.setState.loading = true
+    const { checkterms } = this.state;
+    if (firstName && email && phone && password && cpassword && checkterms) {
+      this.setState({
+        error_msg: '',
+        loading: true
+      });
       signup(this.state.signupForm.email, this.state.signupForm.password).then(response => {
-        console.log(this.state.signupForm);
         register(this.state.signupForm).then(response => {
           if (response.result) {
             console.log(response.data.userDetails.id);
@@ -100,8 +104,14 @@ class SignUp extends Component {
               userAccountDetails: response.data.accountDetails,
               userId:response.data.userDetails.id
             });
-            this.setState({ otpScreen: true });
-            this.setState.loading = false
+            this.setState({ 
+              otpScreen: true,
+              otpForm: {
+                otp: '',
+              }
+            });
+            this.setState({ loading: false });
+            localStorage.setItem('step1', true);
           }else{
             this.setState({
               error_msg: response.message,
@@ -111,7 +121,8 @@ class SignUp extends Component {
         });
       }).catch(err => {
         this.setState({
-          error_msg: err.message
+          error_msg: err.message,
+          loading : false
         });
       })
     }
@@ -121,35 +132,41 @@ class SignUp extends Component {
     this.state.otpForm[event.target.name] = event.target.value;
     this.setState({ otpForm: this.state.otpForm });
     console.log(this.stage)
-    //this.OtpValid();
+    this.OtpValid();
   }
   OtpValid() {
     this.setState({
       OtpValidMes: {
-        Otp_msg: RequireVal(this.state.otpForm.otp)
+        Otp_msg: Password(this.state.otpForm.otp)
       }
     })
   }
-  checkOtp() {
+  checkOtp(e) {
+    e.preventDefault();
     this.OtpValid();
     const { otp } = this.state.otpForm;
+    console.log(otp);
     if (otp) {
+        this.setState({
+          error_msg: '',
+          loading: true
+        });
         validateOtp(this.state.otpForm.otp).then(response => {
-        console.log(response);
         if(response.result){
-
+          localStorage.setItem('isLogin', true);
+          localStorage.setItem('userDetails', JSON.stringify(this.state.userDetails));
+          localStorage.setItem('userAccountDetails', JSON.stringify(this.state.userAccountDetails));
+          localStorage.setItem('step1', '');
+          this.setState({ loading: false });
+          this.props.history.push('/create-invoice');
         }else{
             this.setState({
-              error_msg: 'something went wrong.'
+              error_msg: response.message,
+              loading : false
             });
         }
       });
-      localStorage.setItem('isLogin', true);
-      localStorage.setItem('userDetails', JSON.stringify(this.state.userDetails));
-      localStorage.setItem('userAccountDetails', JSON.stringify(this.state.userAccountDetails));
-      this.props.history.push('/create-invoice');
     }
-    console.log(this.state.otpForm);
   }
   resendOtp() {
     let data = {
@@ -170,20 +187,16 @@ class SignUp extends Component {
 
   render() {
 
-    if (this.state.otpScreen) {
+    if (this.state.otpScreen || localStorage.getItem('step1')) {
       return (
         <div className="page_otp section_user">
-          <p className="_title">Enter OTP</p>
-          <div className="form_user">
-            <div className="form-group">
-              <label>Enter OTP</label>
-              <input className="form-control" name="otp" onChange={this.handleInputChangeOtpScreen} />
-              <p className="mes_error">{this.state.OtpValidMes.Otp_msg}</p>
-              <p className="mes_error api_error">{this.state.error_msg}</p>
-            </div>
-            <button type="submit" className="btn btn-primary" onClick={this.checkOtp}>Submit</button>
-            <button type="submit" className="btn btn-primary" onClick={this.resendOtp.bind(this)}>Resend</button>
-          </div>
+          <p className="_title">STEP 2 - Enter OTP</p>
+          <p>Please enter the OTP received though SMS to complete the sign up process</p>
+          <input className="form-control input_enterotp" type="password" maxLength="6" placeholder="******" name="otp" onChange={this.handleInputChangeOtpScreen} />
+          <p className="mes_error">{this.state.OtpValidMes.Otp_msg}</p>
+          <p className="mes_error api_error">{this.state.error_msg}</p>
+          <button type="submit" className={'btn btn-primary _mr15' + ((this.state.loading) ? 'btndisabled' : '') } onClick={this.checkOtp}>Confirm</button>
+          <button type="submit" className="btn btn-primary" onClick={this.resendOtp.bind(this)}>Resend</button>
         </div>
       )
     } else {
@@ -239,7 +252,8 @@ class SignUp extends Component {
             <div className="txt_terms">
               <label className="custom-control custom-checkbox">
               <input type="checkbox" className="custom-control-input" name="checkterms" checked={this.state.isChecked} onChange={this.InputHandler} /><span className="custom-control-indicator"></span></label> By registering, you agree to our <Link to="/terms-of-service" target="_blank">Terms of Service</Link> and <Link to="/privacy-policy" target="_blank">Privacy Policy</Link>.</div>
-            <p className="mes_error api_error">{this.state.error_msg}</p>
+               <p className="mes_error">{this.state.SignupFormMes.checkterms_msg}</p>
+               <p className="mes_error api_error">{this.state.error_msg}</p>
           </div>
 
 
