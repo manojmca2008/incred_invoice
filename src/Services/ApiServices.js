@@ -9,7 +9,7 @@ export function userDetails(userID) {
     });
 }
 export function validateOtp(otp) {
-  return axios.get(apiUrl + 'verfiy-otp/'+otp)
+  return axios.get(apiUrl + 'validate-otp/'+otp)      
     .then(response => {      
       return response.data;
     });
@@ -64,6 +64,13 @@ export function resendOtp(data) {
 }
 export function forgotPassword(data) {
   return axios.post(apiUrl + 'forget-password', data).then(response => {
+    return response.data;
+  }).catch(err => {
+    return err;
+  });
+}
+export function resetPassword(data) {
+  return axios.post(apiUrl + 'reset-password', data).then(response => {
     return response.data;
   }).catch(err => {
     return err;

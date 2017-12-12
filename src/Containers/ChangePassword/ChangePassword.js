@@ -1,20 +1,39 @@
 import React, { Component } from 'react';
-
+import { resetPassword } from '../../Services/ApiServices';
 
 class ChangePassword extends Component {
   constructor(props) {
     super(props);
-    let self = this;
-    console.log(this.props.match.params.token);
-    
+    this.state = {
+      resetCode: this.props.match.params.token
+    }  
   }
 
   InputHandler(e) {
-    
+    alert('sasaa');
   }
   HandleClick(e) {
-    //e.preventDefault();
-    
+    alert('sasaa');
+    e.preventDefault();
+    const { resetCode,password } = this.state;
+    if (resetCode && password) {
+      let data = {
+        password:password,
+        resetCode:resetCode
+      }
+      resetPassword(data).then(response => {
+          if(response.result){
+            //this.props.history.push('/create-invoice');
+            this.setState.loading = false
+          }else{
+              this.setState({
+                error_msg: response.message,
+                loading : false
+              });
+              console.log(response.message, response);
+          }
+      });
+    }
   }
   render() {   
     return (
@@ -25,13 +44,13 @@ class ChangePassword extends Component {
         
         <div className="form-group">
           <label>New password</label>
-          <input className="form-control" name="" type="password"  onChange={this.InputHandler} />
+          <input className="form-control" name="password" type="password"  onChange={this.InputHandler.bind(this)} />
           <p className="mes_error"></p>
         </div>
 
         <div className="form-group">
           <label>Confirm Password</label>
-          <input className="form-control" name="" type="password"  onChange={this.InputHandler} />
+          <input className="form-control" name="cpassword" type="password"  onChange={this.InputHandler.bind(this)} />
           <p className="mes_error"></p>
         </div>
 
