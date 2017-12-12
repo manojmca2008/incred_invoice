@@ -6,6 +6,7 @@ import { signup } from '../../Services/AuthServices';
 import { register, validateOtp, resendOtp } from '../../Services/ApiServices';
 import { Email, Password, RequireVal, Phone, ConformPassword } from './../../Helpers/FormValidation';
 
+
 class SignUp extends Component {
   constructor(props) {
     super(props);
@@ -31,6 +32,7 @@ class SignUp extends Component {
         phone: '',
         password: '',
         cpassword: '',
+        isChecked: ''
       },
       SignupFormMes: {
 
@@ -49,29 +51,44 @@ class SignUp extends Component {
     this.checkOtp = this.checkOtp.bind(this);
   }
 
-  SignUpValid() {
+  SignUpValid(e) {
     this.setState({
       SignupFormMes: {
         fname_msg: RequireVal(this.state.signupForm.firstName),
         email_msg: Email(this.state.signupForm.email),
         phone_msg: Phone(this.state.signupForm.phone),
         password_msg: Password(this.state.signupForm.password),
-        cpassword_msg: ConformPassword(this.state.signupForm.cpassword)
+        cpassword_msg: ConformPassword(this.state.signupForm.password, !this.state.signupForm.cpassword)
       }
     })
   }
   InputHandler(e) {
-    this.state.signupForm[e.target.name] = e.target.value;
+   this.state.signupForm[e.target.name] = e.target.value;
+   const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
     this.setState({
       signupForm: this.state.signupForm,
     });
     this.SignUpValid();
+    if(e.target.name === 'checkterms'){
+      this.setState({
+        [e.target.name]: value
+      });
+    }
   }
+
+  handeOnChange(value) {
+    this.setState({
+       phone: value
+    });
+ }
+
   handleClick(e) {
     e.preventDefault();
     this.SignUpValid();
     const { firstName, email, phone, password, cpassword } = this.state.signupForm;
+    this.setState.loading = false
     if (firstName && email && phone && password && cpassword) {
+      this.setState.loading = true
       signup(this.state.signupForm.email, this.state.signupForm.password).then(response => {
         console.log(this.state.signupForm);
         register(this.state.signupForm).then(response => {
@@ -84,9 +101,12 @@ class SignUp extends Component {
               userId:response.data.userDetails.id
             });
             this.setState({ otpScreen: true });
-            // this.setState({
-            //   error_msg: 'something went wrong.'
-            // });
+            this.setState.loading = false
+          }else{
+            this.setState({
+              error_msg: response.message,
+              loading : false
+             });
           }
         });
       }).catch(err => {
@@ -100,7 +120,8 @@ class SignUp extends Component {
   handleInputChangeOtpScreen(event) {
     this.state.otpForm[event.target.name] = event.target.value;
     this.setState({ otpForm: this.state.otpForm });
-    this.OtpValid();
+    console.log(this.stage)
+    //this.OtpValid();
   }
   OtpValid() {
     this.setState({
@@ -148,6 +169,7 @@ class SignUp extends Component {
   }
 
   render() {
+
     if (this.state.otpScreen) {
       return (
         <div className="page_otp section_user">
@@ -155,7 +177,7 @@ class SignUp extends Component {
           <div className="form_user">
             <div className="form-group">
               <label>Enter OTP</label>
-              <input className="form-control" placeholder="" name="otp" onChange={this.handleInputChangeOtpScreen} />
+              <input className="form-control" name="otp" onChange={this.handleInputChangeOtpScreen} />
               <p className="mes_error">{this.state.OtpValidMes.Otp_msg}</p>
               <p className="mes_error api_error">{this.state.error_msg}</p>
             </div>
@@ -171,12 +193,12 @@ class SignUp extends Component {
           <div className="form_user">
             <div className="form-group">
               <label>First Name</label>
-              <input className="form-control" type="text" name="firstName" value={this.state.firstName} onChange={this.InputHandler} />
+              <input className="form-control" type="text" maxLength="25" name="firstName" value={this.state.firstName} onChange={this.InputHandler} />
               <p className="mes_error">{this.state.SignupFormMes.fname_msg}</p>
             </div>
             <div className="form-group">
               <label>Last name</label>
-              <input className="form-control" type="text" name="lastName" value={this.state.lastName} onChange={this.InputHandler} />
+              <input className="form-control" type="text" maxLength="25" name="lastName" value={this.state.lastName} onChange={this.InputHandler} />
             </div>
 
             <div className="form-group">
@@ -187,32 +209,55 @@ class SignUp extends Component {
 
             <div className="form-group">
               <label>Phone Number</label>
-              <input className="form-control" type="number" name="phone" value={this.state.phone} onChange={this.InputHandler} />
+
+              <div className="row _mr0">
+                <div className="col-md-3">
+                    <input className="form-control" placeholder="+91" type="number" name="countrycode" value={this.state.phone} onChange={this.InputHandler} />
+                </div>
+
+                <input className="form-control col-md-9" type="number" name="phone" value={this.state.phone} onChange={this.InputHandler} />
+
+              </div>
+
+
               <p className="mes_error">{this.state.SignupFormMes.phone_msg}</p>
             </div>
 
+            <div className="line_diff"></div>
+
             <div className="form-group">
               <label>Password</label>
-              <input className="form-control" type="password" name="password" value={this.state.password} onChange={this.InputHandler} />
+              <input className="form-control" type="password" maxLength="25" name="password" value={this.state.password} onChange={this.InputHandler} />
               <p className="mes_error">{this.state.SignupFormMes.password_msg}</p>
             </div>
 
             <div className="form-group">
               <label>Confirm Password</label>
-              <input className="form-control" type="password" name="cpassword" value={this.state.cpassword} onChange={this.InputHandler} />
+              <input className="form-control" type="password" maxLength="25" name="cpassword" value={this.state.cpassword} onChange={this.InputHandler} />
               <p className="mes_error">{this.state.SignupFormMes.cpassword_msg}</p>
             </div>
             <div className="txt_terms">
-              <label className="custom-control custom-checkbox"><input type="checkbox" className="custom-control-input" name="rememberpassword" checked={this.state.isChecked} /><span className="custom-control-indicator"></span></label> By registering, you agree to our <Link to="/terms-of-service">Terms of Service</Link> and <Link to="/privacy-policy">Privacy Policy</Link>.</div>
+              <label className="custom-control custom-checkbox">
+              <input type="checkbox" className="custom-control-input" name="checkterms" checked={this.state.isChecked} onChange={this.InputHandler} /><span className="custom-control-indicator"></span></label> By registering, you agree to our <Link to="/terms-of-service" target="_blank">Terms of Service</Link> and <Link to="/privacy-policy" target="_blank">Privacy Policy</Link>.</div>
             <p className="mes_error api_error">{this.state.error_msg}</p>
-            <p className="text-right">
-              <button type="submit" className="btn btn-primary" onClick={this.handleClick}>Register</button>
-            </p>
           </div>
-          <div className="section_registered">
-            <p className="txt_notregistered">Already have an account</p>
-            <p><Link to="/sign-in" className="btn btn-success">login</Link></p>
-          </div>
+
+
+          <div className="form_footerstyle">
+            
+            <div className="style_line justify-content-between l">
+              <p className="txt">STEP 1</p>
+              <div className="justify-content-between _line">
+                <span className="active"></span>
+                <span></span>
+              </div>
+            </div>
+
+            <div className="row align-items-center">
+              <div className="col align-middle"><Link to="/sign-in" className="txt_already">Already have an account?</Link></div>
+              <div className="col text-right"><button type="submit" className={'btn btn-primary ' + ((this.state.loading) ? 'btndisabled' : '')}  onClick={this.handleClick}>Next ></button></div>
+            </div>
+            </div>
         </div>
       );
     }

@@ -9,7 +9,7 @@ export function userDetails(userID) {
     });
 }
 export function validateOtp(otp) {
-  return axios.get(apiUrl + 'signup/'+otp)
+  return axios.get(apiUrl + 'verfiy-otp/'+otp)
     .then(response => {      
       return response.data;
     });

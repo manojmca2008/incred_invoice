@@ -28,6 +28,7 @@ input[type=number]::-webkit-outer-spin-button {
 ._p20{padding:20px;}
 
 ._m0{margin:0!important;}
+._mr0{margin-right:0!important;}
 
 ._mb30{
     margin-bottom:30px;
@@ -46,10 +47,12 @@ input[type=number]::-webkit-outer-spin-button {
 .btn{
     cursor:pointer;
     border-radius:0;
+    border: 0;
     text-transform: uppercase;
     box-shadow:none!important;
     font-size:0.75rem;
     min-width: 100px;
+    padding:10px 30px;
     &.btn-primary{
             background: $redshade1-color;
             border-color:$redshade1-color;                      
@@ -204,12 +207,34 @@ input{
     }
 }
 
+.custom-checkbox {
+    .custom-control-input{
+        &:checked{
+            ~ .custom-control-indicator{
+              border: 0; 
+              background-color: $redshade1-color;
+            }
+        }
+    }
+    .custom-control-indicator{
+        @include vendor-prefixes(border-radius, 0);
+        background-color : $white-color;
+        border:1px solid $grayshade5-color;
+    }
+     
+}
+
 ._title{
     text-transform: uppercase;
 }
 ._subtitle{
     text-transform: uppercase;
 }
+
+[name='countrycode']{
+    text-align: center;
+}
+
 @media (min-width: 992px) {
     ._title{
         color: $redshade1-color;

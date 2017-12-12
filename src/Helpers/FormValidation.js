@@ -1,4 +1,4 @@
-import { BLANK_VALId, EMAIL_VALId, SIXDIGIT_VALId,PHONENOPRANK_VALId,PHONEFORMAT_VALId } from './../Constant/Messages';
+import { BLANK_VALId, EMAIL_VALId, SIXDIGIT_VALId,PHONENOPRANK_VALId,PHONEFORMAT_VALId, PHONEMATCH_VALId } from './../Constant/Messages';
 
 function Email(inputVal){
   let error = inputVal;
@@ -12,16 +12,7 @@ function Email(inputVal){
   return errormes
 }
 
-function Password(inputVal){
-  let error = inputVal;
-  let errormes
-  if(!error){
-    errormes = BLANK_VALId
-  } else if ( error.length < 5 ){
-    errormes = SIXDIGIT_VALId
-  }
-  return errormes
-}
+
 
 function RequireVal(inputVal){
   let error = inputVal;
@@ -39,16 +30,33 @@ function Phone(inputVal){
     errormes = PHONENOPRANK_VALId
   } else if ( error.length < 10 ){
     errormes = PHONEFORMAT_VALId
-  } 
+  }
   return errormes
 }
-function ConformPassword(inputVal){
+
+function Password(inputVal){
   let error = inputVal;
   let errormes
   if(!error){
     errormes = BLANK_VALId
-  } else if ( error.length < 5 ){
+  } else if ( error.length < 6 ){
     errormes = SIXDIGIT_VALId
+  }
+  return errormes
+}
+
+function ConformPassword(password1, password2){
+  let pass1  = password1;
+  let pass2  = password2;
+  let errormes
+  if(!pass2){
+    errormes = BLANK_VALId
+  } else if ( pass2.length < 6 ){
+    errormes = SIXDIGIT_VALId
+  }else if(pass1 && pass2){
+    if (pass1 !== pass2) {
+      errormes = PHONEMATCH_VALId
+    }
   }
   return errormes
 }

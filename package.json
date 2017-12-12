@@ -46,6 +46,7 @@
     "react-flags": "^0.1.12",
     "react-flags-select": "^1.1.0",
     "react-native-flags": "^1.0.0",
+    "react-phone-input": "^1.2.1",
     "react-redux": "^5.0.6",
     "react-redux-connect-helpers": "^3.0.3",
     "react-router-dom": "^4.2.2",

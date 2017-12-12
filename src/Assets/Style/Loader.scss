@@ -42,3 +42,40 @@
       transform: rotate(360deg);
     }
   }
+
+
+  .btndisabled{
+    position: relative;
+    pointer-events: none;
+    cursor: none;
+    &:after, &:before{
+      content: '';
+      position: absolute;
+      
+    }
+    &:before{
+      background: rgba(0, 0, 0, 0.8);
+      width:  100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+    &:after{
+      width:24px;
+      height:24px;
+      border:3px solid rgba(255,255,255,0.3);
+      border-right-color:#fff;
+      -webkit-border-radius:50%;
+      -moz-border-radius:50%;
+      border-radius:50%;
+      left:50%;
+      top:9px;
+      margin-left:-10px;
+      -webkit-transform: translateZ(0);
+      -ms-transform: translateZ(0);
+      transform: translateZ(0);
+      -webkit-animation: load8 1.1s infinite linear;
+      animation: load8 1.1s infinite linear;
+
+    }
+  }
