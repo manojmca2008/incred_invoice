@@ -5,6 +5,7 @@ class ChangePassword extends Component {
   constructor(props) {
     super(props);
     let self = this;
+    console.log(this.props.match.params.token);
     
   }
 
