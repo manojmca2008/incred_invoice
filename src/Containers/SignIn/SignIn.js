@@ -73,10 +73,10 @@ class SignIn extends Component {
             this.setState.loading = '0'
           }else{
               this.setState({
-                error_msg: 'something went wrong.',
+                error_msg: response.message,
                 loading : false
               });
-              console.log(this.state);
+              console.log(response.message, response);
           }
         
       });

@@ -4,6 +4,7 @@ EMAIL_VALId = 'That don\'t look like any e-mail I ever seen. Maybe the "@" or th
 SIXDIGIT_VALId = 'you have to enter at least 6 digit!',
 RESETTHANKYOU_VALId =  'We have just sent you an email with password reset instructions.',
 PHONENOPRANK_VALId = 'We promise; No prank calls',
-PHONEFORMAT_VALId = 'You know, there\'s a cadence to phone numbers. They usually go xxx-xxx-xxxx';
+PHONEFORMAT_VALId = 'You know, there\'s a cadence to phone numbers. They usually go xxx-xxx-xxxx',
+PHONEMATCH_VALId = 'These passwords don\'t match. Try again?';
 
-export{BLANK_VALId, FIRSTNAME_VALId, EMAIL_VALId, PHONEFORMAT_VALId, SIXDIGIT_VALId, RESETTHANKYOU_VALId,PHONENOPRANK_VALId}
+export{BLANK_VALId, FIRSTNAME_VALId, EMAIL_VALId, PHONEFORMAT_VALId, SIXDIGIT_VALId, RESETTHANKYOU_VALId,PHONENOPRANK_VALId, PHONEMATCH_VALId}

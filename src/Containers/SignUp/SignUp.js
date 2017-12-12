@@ -56,12 +56,12 @@ class SignUp extends Component {
         email_msg: Email(this.state.signupForm.email),
         phone_msg: Phone(this.state.signupForm.phone),
         password_msg: Password(this.state.signupForm.password),
-        cpassword_msg: ConformPassword(this.state.signupForm.cpassword)
+        cpassword_msg: ConformPassword(this.state.signupForm.password, this.state.signupForm.cpassword)
       }
     })
   }
   InputHandler(e) {
-    this.state.signupForm[e.target.name] = e.target.value;
+   this.state.signupForm[e.target.name] = e.target.value;
     this.setState({
       signupForm: this.state.signupForm,
     });
@@ -100,7 +100,8 @@ class SignUp extends Component {
   handleInputChangeOtpScreen(event) {
     this.state.otpForm[event.target.name] = event.target.value;
     this.setState({ otpForm: this.state.otpForm });
-    this.OtpValid();
+    console.log(this.stage)
+    //this.OtpValid();
   }
   OtpValid() {
     this.setState({
@@ -155,7 +156,7 @@ class SignUp extends Component {
           <div className="form_user">
             <div className="form-group">
               <label>Enter OTP</label>
-              <input className="form-control" placeholder="" name="otp" onChange={this.handleInputChangeOtpScreen} />
+              <input className="form-control" name="otp" onChange={this.handleInputChangeOtpScreen} />
               <p className="mes_error">{this.state.OtpValidMes.Otp_msg}</p>
               <p className="mes_error api_error">{this.state.error_msg}</p>
             </div>
@@ -171,12 +172,12 @@ class SignUp extends Component {
           <div className="form_user">
             <div className="form-group">
               <label>First Name</label>
-              <input className="form-control" type="text" name="firstName" value={this.state.firstName} onChange={this.InputHandler} />
+              <input className="form-control" type="text" maxLength="25" name="firstName" value={this.state.firstName} onChange={this.InputHandler} />
               <p className="mes_error">{this.state.SignupFormMes.fname_msg}</p>
             </div>
             <div className="form-group">
               <label>Last name</label>
-              <input className="form-control" type="text" name="lastName" value={this.state.lastName} onChange={this.InputHandler} />
+              <input className="form-control" type="text" maxLength="25" name="lastName" value={this.state.lastName} onChange={this.InputHandler} />
             </div>
 
             <div className="form-group">
@@ -193,13 +194,13 @@ class SignUp extends Component {
 
             <div className="form-group">
               <label>Password</label>
-              <input className="form-control" type="password" name="password" value={this.state.password} onChange={this.InputHandler} />
+              <input className="form-control" type="password" maxLength="25" name="password" value={this.state.password} onChange={this.InputHandler} />
               <p className="mes_error">{this.state.SignupFormMes.password_msg}</p>
             </div>
 
             <div className="form-group">
               <label>Confirm Password</label>
-              <input className="form-control" type="password" name="cpassword" value={this.state.cpassword} onChange={this.InputHandler} />
+              <input className="form-control" type="password" maxLength="25" name="cpassword" value={this.state.cpassword} onChange={this.InputHandler} />
               <p className="mes_error">{this.state.SignupFormMes.cpassword_msg}</p>
             </div>
             <div className="txt_terms">
