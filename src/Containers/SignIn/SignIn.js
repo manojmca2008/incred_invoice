@@ -63,6 +63,7 @@ class SignIn extends Component {
       login(email, password).then(response => {
         let data = {
           email: email,
+          password:password
         }
         signin(data).then(response => {
           if(response.result){
