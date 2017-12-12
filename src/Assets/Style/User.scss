@@ -34,7 +34,7 @@
     }
     .txt_terms{
         font:11px arial;
-        padding:5px 0 30px; 
+        padding:5px 0 10px; 
         @include position(relative);
         a{
             text-transform:capitalize;
@@ -114,6 +114,18 @@
          }
     }
 
+    &.page_otp{
+        text-align: center;
+        .input_enterotp{
+            margin:30px auto 0;
+            max-width: 200px;
+            text-align: center;
+        }
+        .btn{
+            margin-top: 30px;
+        }
+    }
+
     .form_footerstyle{
         background: $black-color;
         @include position(fixed, $bottom:0, $left:0);
@@ -178,7 +190,7 @@
     .section_user{
         max-width:370px;
         margin:0 auto;
-        padding: 20px 0;
+        padding: 20px 0 60px;
         ._title{
             font-size: 1.5em;
             padding: 15px 0;

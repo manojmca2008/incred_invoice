@@ -1,4 +1,4 @@
-import { BLANK_VALId, EMAIL_VALId, SIXDIGIT_VALId,PHONENOPRANK_VALId,PHONEFORMAT_VALId, PHONEMATCH_VALId } from './../Constant/Messages';
+import { BLANK_VALId, EMAIL_VALId, SIXDIGIT_VALId,PHONENOPRANK_VALId,PHONEFORMAT_VALId, PHONEMATCH_VALId, TC_VALId } from './../Constant/Messages';
 
 function Email(inputVal){
   let error = inputVal;
@@ -37,10 +37,13 @@ function Phone(inputVal){
 function Password(inputVal){
   let error = inputVal;
   let errormes
+  //let hasError = false;
   if(!error){
     errormes = BLANK_VALId
+    //hasError = true
   } else if ( error.length < 6 ){
     errormes = SIXDIGIT_VALId
+    //hasError = true
   }
   return errormes
 }
@@ -78,6 +81,14 @@ function PhoneNumberFormat(inputVal){
   } */
 };
 
+function CheckboxTrue(inputVal){
+  let errormes
+  if(inputVal === false){
+    errormes = TC_VALId
+  }
+  return errormes
+}
 
 
-export { Email, Password, RequireVal, Phone, ConformPassword, PhoneNumberFormat}
+
+export { Email, Password, RequireVal, Phone, ConformPassword, PhoneNumberFormat, CheckboxTrue}
