@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { forgotPassword } from '../../Services/AuthServices';
 import { Email } from './../../Helpers/FormValidation';
 import { RESETTHANKYOU_VALId } from './../../Constant/Messages';
+import { forgotPassword} from '../../Services/ApiServices';
 import firebase from 'firebase';
 
 class ForgetPassword extends Component {
@@ -39,16 +39,29 @@ class ForgetPassword extends Component {
       });
       return false;
     } else {
-      forgotPassword(this.state.email).then(value => {
-        this.setState({
-          email_thanksmes: RESETTHANKYOU_VALId
-        });
-      }).catch(err => {
-        this.setState({
-          email_errormes: err.message
-        });
-      })
-    }
+      let data = {
+        email: this.state.email,
+      }
+      forgotPassword(data).then(response => {
+        console.log(response);
+        if(response.result){
+
+        }else{
+            this.setState({
+              email_errormes: response
+            });
+        }
+      });
+      // forgotPassword(this.state.email).then(value => {
+      //   this.setState({
+      //     email_thanksmes: RESETTHANKYOU_VALId
+      //   });
+      // }).catch(err => {
+      //   this.setState({
+      //     email_errormes: err.message
+      //   });
+      // })
+    } 
   }
   render() {
     return (

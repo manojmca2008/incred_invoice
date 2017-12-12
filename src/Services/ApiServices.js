@@ -62,4 +62,11 @@ export function resendOtp(data) {
     return err;
   });
 }
+export function forgotPassword(data) {
+  return axios.post(apiUrl + 'forget-password', data).then(response => {
+    return response.data;
+  }).catch(err => {
+    return err;
+  });
+}
 
