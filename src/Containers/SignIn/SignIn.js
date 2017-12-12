@@ -70,7 +70,7 @@ class SignIn extends Component {
             localStorage.setItem('userDetails', JSON.stringify(response.data.userDetails));
             localStorage.setItem('userAccountDetails', JSON.stringify(response.data.accountDetails));
             this.props.history.push('/create-invoice');
-            this.setState.loading = '0'
+            this.setState.loading = false
           }else{
               this.setState({
                 error_msg: response.message,
