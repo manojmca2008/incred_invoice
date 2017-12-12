@@ -216,6 +216,9 @@ input{
     ._title{
         color: $redshade1-color;
         font-weight: 300;
+        &._s{
+            padding: 15px 15px 0;
+        }
     }
     .ad-md-show{
         display: none;

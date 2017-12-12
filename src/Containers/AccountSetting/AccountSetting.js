@@ -116,11 +116,13 @@ class AccountSetting extends Component {
             </select>
           </div>
 
-          <div className={'form-group' + this.state.isLogin ? '' : 'disable'}>
+          <div className="form-group">
+            <div className={this.state.isLogin ? '' : 'disable'}>
             <label>ADD NEW ACCOUNT</label>
             <div className="form_addaccount">
               <input type="text" className="form-control" name="accountName" value={this.state.accountForm.accountName} onChange={this.InputHandler} />
               <a href="javascript:void(0)" className="btn btn-primary" onClick={this.HandleClick.bind(this)}>ADD</a>
+            </div>
             </div>
           </div>
 
