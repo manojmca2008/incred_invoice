@@ -57,7 +57,9 @@ class SignIn extends Component {
     this.LoginValid();
     this.setState({ submitted: true });
     const { email, password } = this.state;
+    this.setState.loading = false
     if (email && password) {
+      this.setState.loading = true
       login(email, password).then(response => {
         let data = {
           email: email,
@@ -68,11 +70,15 @@ class SignIn extends Component {
             localStorage.setItem('userDetails', JSON.stringify(response.data.userDetails));
             localStorage.setItem('userAccountDetails', JSON.stringify(response.data.accountDetails));
             this.props.history.push('/create-invoice');
+            this.setState.loading = '0'
           }else{
               this.setState({
-                error_msg: 'something went wrong.'
+                error_msg: 'something went wrong.',
+                loading : false
               });
+              console.log(this.state);
           }
+        
       });
       }).catch(err => {
         this.setState({
@@ -108,7 +114,7 @@ class SignIn extends Component {
             </div>*/}
             <p className="txt_terms">By continuing, you agree to our <Link to="/terms-of-service">Terms of Service</Link> and <Link to="/privacy-policy">Privacy Policy</Link>.</p>
             <p className="text-center">
-              <button type="submit" className="btn btn-primary _mr10" onClick={this.HandleClick}>Login</button>
+              <button type="submit" className={'btn btn-primary _mr10 ' + ((this.state.loading) ? 'btndisabled' : '')} onClick={this.HandleClick}>Login</button>
               <Link to="/forget-password" className="btn btn-primary">Lost your password?</Link>
             </p>
 
