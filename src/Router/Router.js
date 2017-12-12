@@ -14,6 +14,9 @@ import AccountSetting from "./../Containers/AccountSetting/AccountSetting";
 import SignIn from "./../Containers/SignIn/SignIn";
 import SignUp from "./../Containers/SignUp/SignUp";
 import ForgetPassword from "./../Containers/ForgetPassword/ForgetPassword";
+import ChangePassword from "./../Containers/ChangePassword/ChangePassword";
+
+
 import PageNotFound from "./../Containers/PageNotFound/PageNotFound";
 
 import PrivacyPolicy from "./../Containers/PrivacyPolicy/PrivacyPolicy";
@@ -34,6 +37,7 @@ const Router = () => (
       <Route path='/sign-in' component={SignIn}/>
       <Route path='/register' component={SignUp}/>
       <Route path='/forget-password' component={ForgetPassword}/>
+      <Route path='/change-password' component={ChangePassword}/>
       <Route path='/account-setting' component={AccountSetting}/>
       <Route path='/privacy-policy' component={PrivacyPolicy}/>
       <Route path='/terms-of-service' component={TermOfService}/>

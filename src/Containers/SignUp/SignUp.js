@@ -23,6 +23,7 @@ class SignUp extends Component {
       otpScreen: false,
       userDetails: [],
       userAccountDetails: [],
+      userId : '',
       signupForm: {
         firstName: '',
         lastName: '',
@@ -75,15 +76,17 @@ class SignUp extends Component {
         console.log(this.state.signupForm);
         register(this.state.signupForm).then(response => {
           if (response.result) {
+            console.log(response.data.userDetails.id);
             this.setState({
               reg_error: '',
               userDetails: response.data.userDetails,
-              userAccountDetails: response.data.accountDetails
+              userAccountDetails: response.data.accountDetails,
+              userId:response.data.userDetails.id
             });
             this.setState({ otpScreen: true });
-            this.setState({
-              error_msg: 'something went wrong.'
-            });
+            // this.setState({
+            //   error_msg: 'something went wrong.'
+            // });
           }
         });
       }).catch(err => {
@@ -107,19 +110,19 @@ class SignUp extends Component {
     })
   }
   checkOtp() {
-    //   validateOtp(this.state.otpForm.otp).then(response => {
-    //     console.log(response);
-    //     if(response.result){
-
-    //     }else{
-    //         this.setState({
-    //           error_msg: 'something went wrong.'
-    //         });
-    //     }
-    // });
     this.OtpValid();
     const { otp } = this.state.otpForm;
     if (otp) {
+        validateOtp(this.state.otpForm.otp).then(response => {
+        console.log(response);
+        if(response.result){
+
+        }else{
+            this.setState({
+              error_msg: 'something went wrong.'
+            });
+        }
+      });
       localStorage.setItem('isLogin', true);
       localStorage.setItem('userDetails', JSON.stringify(this.state.userDetails));
       localStorage.setItem('userAccountDetails', JSON.stringify(this.state.userAccountDetails));
@@ -128,10 +131,10 @@ class SignUp extends Component {
     console.log(this.state.otpForm);
   }
   resendOtp() {
-    alert('sada');
     let data = {
       email: this.state.signupForm.email,
-      phone: this.state.signupForm.phone
+      phone: this.state.signupForm.phone,
+      userId: this.state.userId
 
     }
     resendOtp(data).then(response => {
@@ -152,7 +155,7 @@ class SignUp extends Component {
           <div className="form_user">
             <div className="form-group">
               <label>Enter OTP</label>
-              <input className="form-control" placeholder="" name="otp" value={this.state.otp} onChange={this.handleInputChangeOtpScreen} />
+              <input className="form-control" placeholder="" name="otp" onChange={this.handleInputChangeOtpScreen} />
               <p className="mes_error">{this.state.OtpValidMes.Otp_msg}</p>
               <p className="mes_error api_error">{this.state.error_msg}</p>
             </div>

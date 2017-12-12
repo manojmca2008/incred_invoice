@@ -9,14 +9,14 @@ class UserSettings extends Component {
     //localStorage.removeItem('isLogin');
     //localStorage.removeItem('userData');
     logout();
-    <Redirect to='/create-invoice'/>;
+    
   }
   render() {
     const userData = JSON.parse(localStorage.getItem('userDetails'));
     console.log(userData);
     return (
       <div className="user_dropdown">
-        { userData.firstName + ' ' + userData.lastName }
+        { (userData) ? userData.firstName + ' ' + userData.lastName : 'Guest' }
         <div className="user_setting">
           <Link to="/account-setting">ACCOUNT SETTING</Link>
           <Link to="#" onClick={this.signOut.bind(this)}>Sign Out</Link>

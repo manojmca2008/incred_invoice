@@ -1,5 +1,8 @@
 //import {firebaseAuth} from '../Config/Constants';
-import firebase from 'firebase'
+import firebase from 'firebase';
+
+import React, { Component } from 'react';
+import { Redirect } from 'react-router';
 
 //class AuthServices extends Component {
   export function  signup(email ,password) {
@@ -72,7 +75,9 @@ import firebase from 'firebase'
   }
 
  export function logout() {
-    firebase.auth().signOut();    
+  <Redirect to='/create-invoice'/>;  
+    firebase.auth().signOut();  
+   
   }
  export function forgotPassword(email){
     return new firebase.auth().sendPasswordResetEmail(email).then(function (result){
