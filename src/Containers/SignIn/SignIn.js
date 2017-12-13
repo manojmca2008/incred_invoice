@@ -108,7 +108,7 @@ render() {
             <p className="mes_error">{this.state.email_errormes}</p>
           </div>
           <div className="form-group">
-            <label>Password</label>
+            <label>Passwords</label>
             <input type="password" className="form-control" name="password" onChange={this.InputHandler} />
             <p className="mes_error">{this.state.password_errormes}</p>
           </div>
