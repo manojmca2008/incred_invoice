@@ -40,7 +40,10 @@ class SignIn extends Component {
     //this.LoginValid();
     let inputvalue = e.target.value;
     const { name, value } = e.target;
-    this.setState({ [name]: value });
+    this.setState({ 
+      [name]: value,
+      error_msg: ''
+    });
     if (e.target.name === 'email') {
       this.setState({
         email_errormes: Email(inputvalue)[0]
@@ -64,6 +67,7 @@ class SignIn extends Component {
     } else {
 
       this.setState({
+        error_msg: '',
         loading : true
       });
       login(email, password).then(response => {
@@ -72,8 +76,9 @@ class SignIn extends Component {
           password:password
         }
         signin(data).then(response => {
-          if (response.result) {
+          if (response.status) {
             localStorage.setItem('isLogin', true);
+            localStorage.setItem('selectedAccountId', response.data.userDetails.selectedAccountId);
             localStorage.setItem('userDetails', JSON.stringify(response.data.userDetails));
             localStorage.setItem('userAccountDetails', JSON.stringify(response.data.accountDetails));
             this.props.history.push('/create-invoice');
@@ -83,13 +88,14 @@ class SignIn extends Component {
               error_msg: response.message,
               loading: false
             });
-            console.log(response.message, response);
+            
           }
 
         });
       }).catch(err => {
         this.setState({
-          error_msg: err.message
+          error_msg: err.message,
+          loading: false
         });
       })
     

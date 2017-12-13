@@ -103,14 +103,17 @@ class SignUp extends Component {
       });
       signup(this.state.signupForm.email, this.state.signupForm.password).then(response => {
         register(this.state.signupForm).then(response => {
-          if (response.result) {
+          if (response.status) {
             console.log(response.data.userDetails.id);
             this.setState({
               reg_error: '',
-              userDetails: response.data.userDetails,
-              userAccountDetails: response.data.accountDetails,
+              //userDetails: response.data.userDetails,
+              //userAccountDetails: response.data.accountDetails,
               userId: response.data.userDetails.id
             });
+            localStorage.setItem('isLogin', true);
+            localStorage.setItem('userDetails', JSON.stringify(response.data.userDetails));
+            localStorage.setItem('userAccountDetails', JSON.stringify(response.data.accountDetails));
             this.setState({
               otpScreen: true,
               otpForm: {
@@ -118,7 +121,7 @@ class SignUp extends Component {
               }
             });
             this.setState({ loading: false });
-            localStorage.setItem('step1', true);
+            //localStorage.setItem('step1', true);
           } else {
             this.setState({
               error_msg: response.message,
@@ -153,18 +156,22 @@ class SignUp extends Component {
     e.preventDefault();
     this.OtpValid();
     const { otp } = this.state.otpForm;
-    console.log(otp);
+    console.log(Password(otp)[1]);
     if (Password(otp)[1]) {
+
+      return false
+
+    }else{
       this.setState({
         error_msg: '',
         loading: true
       });
       validateOtp(this.state.otpForm.otp).then(response => {
-        if (response.result) {
-          localStorage.setItem('isLogin', true);
-          localStorage.setItem('userDetails', JSON.stringify(this.state.userDetails));
-          localStorage.setItem('userAccountDetails', JSON.stringify(this.state.userAccountDetails));
-          localStorage.setItem('step1', '');
+        if (response.status) {
+          //localStorage.setItem('isLogin', true);
+         // localStorage.setItem('userDetails', JSON.stringify(this.state.userDetails));
+         // localStorage.setItem('userAccountDetails', JSON.stringify(this.state.userAccountDetails));
+          //localStorage.setItem('step1', '');
           this.setState({ loading: false });
           this.props.history.push('/create-invoice');
         } else {
@@ -184,7 +191,7 @@ class SignUp extends Component {
 
     }
     resendOtp(data).then(response => {
-      if (response.result) {
+      if (response.status) {
       } else {
         this.setState({
           error_msg: response.message
@@ -195,7 +202,7 @@ class SignUp extends Component {
 
   render() {
 
-    if (this.state.otpScreen || localStorage.getItem('step1')) {
+    if (this.state.otpScreen) {
       return (
         <div className="page_otp section_user">
           <p className="_title">STEP 2 - Enter OTP</p>

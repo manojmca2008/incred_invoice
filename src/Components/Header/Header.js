@@ -50,7 +50,9 @@ class Header extends Component {
     if (localStorage.getItem('isLogin')) {
       this.state.login = <UserSettings />;
       this.state.signup = '';
+      this.state.setting = '';
     } else {
+      this.state.setting = <Link to="/account-setting" className="link_signin">ACCOUNT SETTING</Link>
       this.state.login = <Link to="/sign-in" className="link_signin">Sign In</Link>;
       this.state.signup = <Link to="/register">REGISTER</Link>;
     }
@@ -89,6 +91,7 @@ class Header extends Component {
             <div className="row">
               <div className="col">THE PROFESSIONAL GST INVOICING AND EXPENSE APPLICATION</div>
               <div className="col text-right ad-md-hide">
+                {this.state.setting}
                 {this.state.login}
                 {this.state.signup}
               </div>

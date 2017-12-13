@@ -14,16 +14,20 @@ class AccountSetting extends Component {
     const userData = JSON.parse(localStorage.getItem('userDetails'));
     this.state = {
       accountData: [],
-      accountId: '',
+      accountId: (localStorage.getItem('isLogin') === null) ?  '' : localStorage.getItem('selectedAccountId') ,
       isLogin: false,
       accountForm: {
         accountName: '',
         country: 'India',
-        userId: (userData ? userData.id : '')
+        userId: (userData ? userData.id : ''),
+        invoiceStartNo : '',
+        currency: ''
       },
     }
+    console.log(localStorage.getItem('selectedAccountId'))
     this.getAccounts = this.getAccounts.bind(this);
     this.InputHandler = this.InputHandler.bind(this);
+    //this.onSelectedCurrency = this.onSelectedCurrency.bind(this);
   }
   componentWillMount() {
     if(localStorage.getItem('isLogin')){
@@ -61,8 +65,9 @@ class AccountSetting extends Component {
     });
   }
   getAccounts() {
+    console.log(this.state.accountForm.userId);
     getUserAccounts(this.state.accountForm.userId).then(response => {
-      if (response.result) {
+      if (response.status) {
         this.setState({ accountData: response.data });
       } else {
         this.setState({
@@ -76,8 +81,9 @@ class AccountSetting extends Component {
       accountId: e.target.value
     });
     getUserAccountDetails(e.target.value).then(response => {
-      if (response.result) {
+      if (response.status) {
         localStorage.setItem('userAccountDetails', JSON.stringify(response.data));
+        localStorage.setItem('selectedAccountId', this.state.accountId)
       } else {
         this.setState({
           error_msg: 'something went wrong.'
@@ -86,15 +92,22 @@ class AccountSetting extends Component {
     });
   }
   render() {
-    let i = 1;
-    let options = this.state.accountData.map(function (option) {
-      return (
-        <option key={option.id} value={option.id}>A/C{i++}:
-                 {option.accountName}
-        </option>
-      )
-    });
-    i++;
+    let options;
+    if(localStorage.getItem('isLogin') === null){
+      options = <option value=''> Guest</option>
+    }else{
+      let i = 1;
+      options = this.state.accountData.map(function (option) {
+        return (
+          <option key={option.id}  value={option.id}>A/C {i++} : {option.accountName}
+          </option>
+        )
+      });
+      i++;
+    }
+    const onSelectedCurrency = currencyAbbrev => {
+      //debug(`Selected ${currencyAbbrev}`)
+    }
     return (
       <div className="page_account_setting section_user">
         <p className="_title">ACCOUNT SETTINGS</p>
@@ -104,20 +117,12 @@ class AccountSetting extends Component {
         </p>
         <div className="form_user">
         
-          <div className={'form-group ' + ((this.state.isLogin) ? '' : 'disable')}>
-          
+          <div className="form-group">
             <label>SELECT ACCOUNT</label>
-            <select id={this.props.id}
-              className='form-control'
-              value={this.state.accountId}
-              onChange={this.selectAccount.bind(this)}>
+            <select className='form-control' value={ this.state.accountId } onChange={this.selectAccount.bind(this)}>
               {options}
-              <option value='1'>Guest
-              </option>
             </select>
           </div>
-
-          
           <div className={'form-group ' + ((this.state.isLogin) ? '' : 'disable')}>
             <label>ADD NEW ACCOUNT</label>
             <div className="form_addaccount">
@@ -127,14 +132,19 @@ class AccountSetting extends Component {
             </div>
 
             <div className={'form-group ' + ((this.state.isLogin) ? '' : 'disable')}>
-              <label>START INVOICE NO</label>
-              <input type="text" className="form-control" name="invoiceno" value={this.state.accountForm.invoiceno} onChange={this.InputHandler} />
+              <label>CURRENCY</label>
+              <input type="text" className="form-control"  maxLength="5" placeholder="INR" name="currency" value={this.state.accountForm.currency} onChange={this.InputHandler} />
             </div>
 
             <div className={'form-group ' + ((this.state.isLogin) ? '' : 'disable')}>
             <label>SELECT COUNTRY</label>
             <ReactFlagsSelect defaultCountry="IN" onSelect={this.onSelectFlag.bind(this)} className="style_flag" />
           </div>
+
+          <div className={'form-group ' + ((this.state.isLogin) ? '' : 'disable')}>
+              <label>START INVOICE NO</label>
+              <input type="number" className="form-control"  maxLength="10" name="invoiceStartNo" value={this.state.accountForm.invoiceno} onChange={this.InputHandler} />
+            </div>
 
           <p className="_subtitle">account details</p>
           <div className="form-group">

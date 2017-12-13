@@ -50,6 +50,7 @@
     "react-redux": "^5.0.6",
     "react-redux-connect-helpers": "^3.0.3",
     "react-router-dom": "^4.2.2",
+    "react-select-currency": "^1.0.7",
     "reactstrap": "^5.0.0-alpha.4",
     "redux": "^3.7.2",
     "redux-form": "^7.2.0",

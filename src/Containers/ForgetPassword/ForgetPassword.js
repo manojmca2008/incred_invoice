@@ -18,6 +18,7 @@ class ForgetPassword extends Component {
     });
     this.state = {
       email: '', 
+      email_thanksmes: '',
       loading: false
     }
     this.InputHandler = this.InputHandler.bind(this);
@@ -47,13 +48,15 @@ class ForgetPassword extends Component {
       }
       forgotPassword(data).then(response => {
         console.log(response);
-        if(response.result){
+        if(response.status){
           this.setState({
-            loading : false
+            loading : false,
+            email_thanksmes : RESETTHANKYOU_VALId
           });
         }else{
             this.setState({
-              email_errormes: response,
+              email_errormes: response.message,
+              email_thanksmes: '',
               loading : false
             });
         }

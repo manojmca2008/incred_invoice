@@ -25,6 +25,8 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0; 
 }
 
+.hide{display: none;}
+
 ._p20{padding:20px;}
 
 ._m0{margin:0!important;}
@@ -71,7 +73,7 @@ input[type=number]::-webkit-outer-spin-button {
         display:none; 
     }
     &.api_error{
-        margin:0 0 14px;
+        margin:5px 0 14px;
     }
 }
 

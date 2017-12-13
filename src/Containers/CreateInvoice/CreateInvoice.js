@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 
+import Popup from "./../../Components/Popup/Popup";
+
 class CreateInvoice extends Component {
   render() {
     return (
       <div className="container-fluid">
+       <Popup></Popup>
       <div className="row">
         <div className="col-md-8">
           <div className="d-flex align-items-center title_invoice">

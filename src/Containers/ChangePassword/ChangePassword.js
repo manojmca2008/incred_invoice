@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { resetPassword } from '../../Services/ApiServices';
 import { Password, ConformPassword } from './../../Helpers/FormValidation';
-
+import { Link } from 'react-router-dom';
+import { updatePassword } from '../../Services/AuthServices';
 
 class ChangePassword extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class ChangePassword extends Component {
       password: '',
       cpassword: ''
     }  
+    console.log(this.props.match.params);
   }
 
   InputHandler(e) {
@@ -38,7 +40,7 @@ class ChangePassword extends Component {
     this.FormValid();
     const { resetCode, password, cpassword } = this.state;
     if(Password(this.state.password)[1] || ConformPassword(this.state.password, this.state.cpassword)[1]){
-      console.log('d');
+      
       return false
     }else {
       this.setState({
@@ -49,44 +51,57 @@ class ChangePassword extends Component {
         resetCode:resetCode
       }
       resetPassword(data).then(response => {
-          if(response.result){
+          if(response.status){
+            //updatePassword(password).then(response => {
+              this.setState.loading = false;
+              this.setState({
+                'mes_thanksmes' : response.message,
+                loading : false
+              });
+            /*}).catch(err => {
+              this.setState({
+                error_msg: err.message,
+                loading: false
+              });
+            });*/
             //this.props.history.push('/create-invoice');
-            this.setState.loading = false;
-            this.setState({
-              loading : false
-            });
-          }else{
+          }else{  
               this.setState({
                 error_msg: response.message,
                 loading : false
               });
-              console.log(response.message, response);
           }
+          console.log(this.state)
       });
     }
   }
   render() {   
     return (
       <div className="section_user">
-        <p className="_title">Lost password</p>
-        <div className="form_user">
-        <p className="mes_thanksmes"></p>
-        
-        <div className="form-group">
-          <label>New password</label>
-          <input className="form-control" name="password" type="password"  onChange={this.InputHandler.bind(this)} />
-          <p className="mes_error">{this.state.password_errormes}</p>
+        <div className={this.state.mes_thanksmes ? 'hide' : ''}>
+          <p className="_title">Lost password</p>
+          <div className="form_user">
+          <div className="form-group">
+            <label>New password</label>
+            <input className="form-control" name="password" type="password"  onChange={this.InputHandler.bind(this)} />
+            <p className="mes_error">{this.state.password_errormes}</p>
+            </div>
+
+          <div className="form-group">
+            <label>Confirm Password</label>
+            <input className="form-control" name="cpassword" type="password"  onChange={this.InputHandler.bind(this)} />
+            <p className="mes_error">{this.state.cpassword_errormes}</p>
           </div>
-
-        <div className="form-group">
-          <label>Confirm Password</label>
-          <input className="form-control" name="cpassword" type="password"  onChange={this.InputHandler.bind(this)} />
-          <p className="mes_error">{this.state.cpassword_errormes}</p>
+          <p className="mes_error api_error">{this.state.error_msg}</p>
+          <p className="text-center"><button type="submit" className={'btn btn-primary ' + ((this.state.loading) ? 'btndisabled' : '')} onClick={(e) => this.HandleClick(e)}>Reset Password</button></p>
+          </div>
         </div>
-
-        <p className="mes_error api_error">{this.state.error_msg}</p>
-        <p className="text-center"><button type="submit" className={'btn btn-primary ' + ((this.state.loading) ? 'btndisabled' : '')} onClick={(e) => this.HandleClick(e)}>Reset Password</button></p>
+        <div className={'text-center ' +  ((this.state.mes_thanksmes) ? '' : 'hide')}>
+          <p className="_title">Thank you</p>
+          <p className="mes_thanksmes">{ this.state.mes_thanksmes }</p>
+          <Link to="/sign-in" className="btn btn-primary">Login</Link>
         </div>
+        
       </div>
     );
   }

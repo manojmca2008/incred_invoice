@@ -2,7 +2,7 @@
 import firebase from 'firebase';
 
 import React, { Component } from 'react';
-import { Switch, Redirect } from 'react-router';
+//import { Switch, Redirect } from 'react-router';
 
 //class AuthServices extends Component {
   export function  signup(email ,password) {
@@ -74,19 +74,22 @@ import { Switch, Redirect } from 'react-router';
     });
   }
 
- export function logout() {
-    //<Redirect to='/create-invoice'/>;  
+ export function logout() { 
     firebase.auth().signOut();  
-    //window.location.reload();
-    <Switch>
-      <Redirect to='/create-invoice' />
-    </Switch>
+    window.location.reload();
   }
  export function forgotPassword(email){
     return new firebase.auth().sendPasswordResetEmail(email).then(function (result){
       return result;
     })
   }
+
+  export function updatePassword(password){
+    return new firebase.auth().updatePassword(password).then(function (result){
+      return result;
+    })
+  }
+
   export function renderIf(condition, content) {
     if (condition) {
         return content;
