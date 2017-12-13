@@ -2,7 +2,7 @@
 import firebase from 'firebase';
 
 import React, { Component } from 'react';
-import { Redirect } from 'react-router';
+import { Switch, Redirect } from 'react-router';
 
 //class AuthServices extends Component {
   export function  signup(email ,password) {
@@ -75,9 +75,12 @@ import { Redirect } from 'react-router';
   }
 
  export function logout() {
-  <Redirect to='/create-invoice'/>;  
+    //<Redirect to='/create-invoice'/>;  
     firebase.auth().signOut();  
-   
+    //window.location.reload();
+    <Switch>
+      <Redirect to='/create-invoice' />
+    </Switch>
   }
  export function forgotPassword(email){
     return new firebase.auth().sendPasswordResetEmail(email).then(function (result){

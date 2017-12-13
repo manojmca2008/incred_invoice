@@ -103,7 +103,8 @@ class AccountSetting extends Component {
           <Link to="/register" className="btn btn-primary">REGISTER</Link>
         </p>
         <div className="form_user">
-          <div className={'form-group' + this.state.isLogin ? 'disable' : ''}>
+        
+          <div className={'form-group ' + ((this.state.isLogin) ? '' : 'disable')}>
           
             <label>SELECT ACCOUNT</label>
             <select id={this.props.id}
@@ -116,17 +117,21 @@ class AccountSetting extends Component {
             </select>
           </div>
 
-          <div className="form-group">
-            <div className={this.state.isLogin ? '' : 'disable'}>
+          
+          <div className={'form-group ' + ((this.state.isLogin) ? '' : 'disable')}>
             <label>ADD NEW ACCOUNT</label>
             <div className="form_addaccount">
               <input type="text" className="form-control" name="accountName" value={this.state.accountForm.accountName} onChange={this.InputHandler} />
               <a href="javascript:void(0)" className="btn btn-primary" onClick={this.HandleClick.bind(this)}>ADD</a>
             </div>
             </div>
-          </div>
 
-          <div className={'form-group' + this.state.isLogin ? '' : 'disable'}>
+            <div className={'form-group ' + ((this.state.isLogin) ? '' : 'disable')}>
+              <label>START INVOICE NO</label>
+              <input type="text" className="form-control" name="invoiceno" value={this.state.accountForm.invoiceno} onChange={this.InputHandler} />
+            </div>
+
+            <div className={'form-group ' + ((this.state.isLogin) ? '' : 'disable')}>
             <label>SELECT COUNTRY</label>
             <ReactFlagsSelect defaultCountry="IN" onSelect={this.onSelectFlag.bind(this)} className="style_flag" />
           </div>
