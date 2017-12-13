@@ -49,12 +49,10 @@ input[type=number]::-webkit-outer-spin-button {
 .btn{
     cursor:pointer;
     border-radius:0;
-    border: 0;
     text-transform: uppercase;
     box-shadow:none!important;
     font-size:0.75rem;
     min-width: 100px;
-    padding:10px 30px;
     &.btn-primary{
             background: $redshade1-color;
             border-color:$redshade1-color;                      

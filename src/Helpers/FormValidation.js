@@ -1,70 +1,80 @@
-import { BLANK_VALId, EMAIL_VALId, SIXDIGIT_VALId,PHONENOPRANK_VALId,PHONEFORMAT_VALId, PHONEMATCH_VALId, TC_VALId } from './../Constant/Messages';
+import { BLANK_VALId, EMAIL_VALId, SIXDIGIT_VALId, PHONENOPRANK_VALId, PHONEFORMAT_VALId, PHONEMATCH_VALId, TC_VALId } from './../Constant/Messages';
 
-function Email(inputVal){
-  let error = inputVal;
+function Email(inputVal) {
+  let value = inputVal;
   let emailFormat = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-  let errormes
-  if (!error) {
-    errormes = BLANK_VALId
-  } else if (!emailFormat.test(error)) {
-    errormes = EMAIL_VALId
+  let errormes = '';
+  let hasError = false;
+  if (!value) {
+    errormes = BLANK_VALId;
+    hasError = true;
+  } else if (!emailFormat.test(value)) {
+    errormes = EMAIL_VALId;
+    hasError = true;
   }
-  return errormes
+  return [errormes, hasError]
 }
 
-
-
-function RequireVal(inputVal){
-  let error = inputVal;
-  let errormes
-  if(!error){
-    errormes = BLANK_VALId
+function Password(inputVal) {
+  let value = inputVal;
+  let errormes = '';
+  let hasError = false;
+  if (!value) {
+    errormes = BLANK_VALId;
+    hasError = true;
+  } else if (value.length < 6) {
+    errormes = SIXDIGIT_VALId;
+    hasError = true;
   }
-  return errormes
+  return [errormes, hasError]
 }
 
-function Phone(inputVal){
-  let error = inputVal;
-  let errormes
-  if(!error){
-    errormes = PHONENOPRANK_VALId
-  } else if ( error.length < 10 ){
-    errormes = PHONEFORMAT_VALId
+function RequireVal(inputVal) {
+  let value = inputVal;
+  let errormes = '';
+  let hasError = false;
+  if (!value) {
+    errormes = BLANK_VALId;
+    hasError = true;
   }
-  return errormes
+  return [errormes, hasError]
 }
 
-function Password(inputVal){
-  let error = inputVal;
-  let errormes
-  //let hasError = false;
-  if(!error){
-    errormes = BLANK_VALId
-    //hasError = true
-  } else if ( error.length < 6 ){
-    errormes = SIXDIGIT_VALId
-    //hasError = true
+function Phone(inputVal) {
+  let value = inputVal;
+  let errormes = '';
+  let hasError = false;
+  if (!value) {
+    errormes = PHONENOPRANK_VALId;
+    hasError = true;
+  } else if (value.length < 10) {
+    errormes = PHONEFORMAT_VALId;
+    hasError = true;
   }
-  return errormes
+  return [errormes, hasError]
 }
 
-function ConformPassword(password1, password2){
-  let pass1  = password1;
-  let pass2  = password2;
-  let errormes
-  if(!pass2){
-    errormes = BLANK_VALId
-  } else if ( pass2.length < 6 ){
-    errormes = SIXDIGIT_VALId
-  }else if(pass1 && pass2){
+function ConformPassword(password1, password2) {
+  let pass1 = password1;
+  let pass2 = password2;
+  let errormes = '';
+  let hasError = false;
+  if (!pass2) {
+    errormes = BLANK_VALId;
+    hasError = true;
+  } else if (pass2.length < 6) {
+    errormes = SIXDIGIT_VALId;
+    hasError = true;
+  } else if (pass1 && pass2) {
     if (pass1 !== pass2) {
-      errormes = PHONEMATCH_VALId
+      errormes = PHONEMATCH_VALId;
+      hasError = true;
     }
   }
-  return errormes
+  return [errormes, hasError]
 }
 
-function PhoneNumberFormat(inputVal){
+function PhoneNumberFormat(inputVal) {
   /*let inputval = inputVal;
   let PhoneFormat = new RegExp(/[^-0-9 !@#$%^&*()+,:;.",]/g);
   let key =  window.event;
@@ -81,14 +91,15 @@ function PhoneNumberFormat(inputVal){
   } */
 };
 
-function CheckboxTrue(inputVal){
-  let errormes
-  if(inputVal === false){
-    errormes = TC_VALId
+function CheckboxTrue(inputVal) {
+  let value = inputVal;
+  let errormes = '';
+  let hasError = false;
+  if (value === true) {
+    errormes = TC_VALId;
   }
-  return errormes
+  console.log(errormes);
+  return [errormes, hasError]
 }
 
-
-
-export { Email, Password, RequireVal, Phone, ConformPassword, PhoneNumberFormat, CheckboxTrue}
+export { Email, Password, RequireVal, Phone, ConformPassword, PhoneNumberFormat, CheckboxTrue }
