@@ -1,0 +1,80 @@
+
+@import 'Mixin';
+@import 'Variable';
+.btn_clearfield{
+    color: $black-color;
+}
+@media (min-width: 991px){
+    .btn_clearfield{margin-top:4px;}
+}
+
+
+
+
+.popup_invoice{
+    ._title{
+        padding-top:10px;padding-bottom:10px;
+    }
+    text-transform: uppercase;
+    .space{
+        padding:20px 0 30px;
+    }
+    .form-group{
+        font-size: 0.75rem;
+    }
+    textarea, input{
+        max-width: 300px;
+        resize: none;
+    }
+    .txt_taxradio{
+        .custom-radio{
+            //margin: 0;
+            align-items: center;
+        }
+    }
+    .txt_gstsub{
+        opacity: 0.8;
+        padding-left: 5px;
+        text-transform: lowercase;
+        font-style: normal;
+        font:12px arial;
+    }
+    @media (max-width: 991px){
+        .mes-required{
+            padding-top: 10px;
+        }
+    }
+}
+.popup_addlogo{
+    .frame_logo{
+        border: 1px solid $grayshade1-color;
+        width: 150px;
+        height: 150px;
+        margin: 0 auto;
+        @include position(relative);
+        .i_add{
+            @include position(absolute, $bottom: 10px, $right: 10px);
+        }
+    }
+    ._title{
+        padding-top:10px;padding-bottom:10px;
+    }
+    @media (min-width: 991px){
+        .space{
+            padding:5% 0 10%;
+        }
+        .txt_upload{
+            padding:3% 0;
+        }
+    }
+    @media (max-width: 990px){
+        .space{
+            padding:10% 5%;
+        }
+        .txt_upload{
+            padding:6% 0;
+        }
+    }
+
+}
+

@@ -6,6 +6,7 @@
 body{
     font-family: 'Open Sans', sans-serif;
     overflow-y: scroll;
+    color: $blackshade1-color;
 }
 
 a{
@@ -18,6 +19,13 @@ a{
 
 p{margin:0;}
 
+
+.txt_req{color:red;font-size:0.75rem;}
+.mes-required{
+    @extend .txt_req;
+    font-style: italic;
+    text-transform: capitalize;
+}
 
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
@@ -62,6 +70,9 @@ input[type=number]::-webkit-outer-spin-button {
             background: $redshade2-color;
             border-color:$redshade2-color;
         }
+    }
+    &.l{
+        font-size: 1rem;
     }
 }
 
@@ -236,7 +247,6 @@ input{
 [name='countrycode']{
     text-align: center;
 }
-
 @media (min-width: 992px) {
     ._title{
         color: $redshade1-color;
@@ -254,7 +264,7 @@ input{
         background: $redshade1-color;
         color: $white-color;
         padding:8px 15px;
-        font-size: 0.8125rem;
+        font-size: 1rem;
     }
     ._subtitle{
         font-size: 1rem;

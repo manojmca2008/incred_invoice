@@ -47,7 +47,7 @@ class AccountSetting extends Component {
   HandleClick(e) {
     e.preventDefault();
     addAccount(this.state.accountForm).then(response => {
-      if (response.result) {
+      if (response.status) {
         this.getAccounts();
         this.state.accountForm.accountName = '';
       } else {

@@ -1,0 +1,35 @@
+@import 'Extend';
+.popup{
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    @include position(fixed, $top:0, $left:0);
+    background: rgba($black-color, 0.9);
+    .popup_dialog{
+        background: $white-color;
+        width:90%;
+        max-width:700px;
+        margin:5vh auto;
+        max-height:90vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+        //padding: 15px 30px 15px 15px; 
+        @include position(relative);
+        min-height: 100px;
+    }
+    .popup_close{
+        @extend .i_close;
+    }
+    @media (min-width: 991px) {
+        ._title{
+            padding: 15px;
+        }
+    }
+    @media (max-width: 991px) {
+        .popup_close{   
+            padding: 8px;
+            top: -2px;
+            right: 3px;
+        }
+    }
+}

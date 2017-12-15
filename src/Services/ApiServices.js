@@ -48,6 +48,14 @@ export function getUserAccountDetails(userId) {
       return response.data.response;
     });
 }
+
+export function getUserDetails() {
+  return axios.get(apiUrl + 'user-details')
+    .then(response => {
+      return response.data.response;
+    });
+}
+
 export function addAccount(data) {
   return axios.post(apiUrl + 'user-accounts', data).then(response => {
     return response.data.response;
