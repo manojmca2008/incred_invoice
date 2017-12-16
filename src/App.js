@@ -15,20 +15,20 @@ class App extends Component {
   componentWillMount(){
     //this.userDetails();
   }
-  userDetails() {
-    getUserDetails().then(response => {
-      console.log(response);
-      if (response.status) {
-        //this.setState({ accountData: response.data });
-      } else {
-        this.setState({
-          error_msg: 'something went wrong.'
-        });
-      }
+  // userDetails() {
+  //   getUserDetails().then(response => {
+  //     console.log(response);
+  //     if (response.status) {
+  //       //this.setState({ accountData: response.data });
+  //     } else {
+  //       this.setState({
+  //         error_msg: 'something went wrong.'
+  //       });
+  //     }
       
-    });
-    //console.log('d');
-  }
+  //   });
+  //   //console.log('d');
+  // }
   render() {
     return (
       <BrowserRouter>
