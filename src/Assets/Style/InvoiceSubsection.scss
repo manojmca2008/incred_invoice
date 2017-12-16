@@ -1,0 +1,183 @@
+@import 'Mixin';
+@import 'Variable';
+
+
+.field_box{
+    @include bg-opacity($black-color, 0.6%);
+    color: $white-color;
+    //height: 100%;
+    text-align: center;
+    font-size: 0.75rem;
+    cursor: pointer;
+    padding: 10px 15px;
+    margin-top: 10px;
+    text-transform: uppercase;
+    &:hover:before{
+        /*content: 'EDIT';
+        width: 100%;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.1);
+        font-size: 0.75rem;
+        padding: 3px 0;
+        @include position(absolute, $top:0, $left:0);*/
+    }
+    &.box_invoicelogo{
+        justify-content: center;
+    }
+    &.multiline{
+        height: 61px;
+    }
+    &.ac{
+        height:100%;
+        justify-content: center;
+    }
+    &.data{
+        background: $green-color;
+    }
+}
+
+.itemtable{
+    font-size: 0.75rem;;
+    margin: 10px 0 0;
+    .headitemtable{
+        @include bg-opacity($black-color, 0.1%);
+        line-height: 30px;
+        padding:0 16px 0 10px;
+    }
+    .bodyitemtable{
+        @include bg-opacity($black-color, 0.6%);
+        color: $white-color;
+        padding:0 16px 0 10px;
+        height:190px;
+        overflow-y: auto;
+        .row{
+            border-top:1px solid $white-color;
+            padding-top:5px;
+            padding-bottom:5px;
+            cursor: pointer;
+            &:hover{
+                @include bg-opacity($black-color, 0.2);
+            }
+        }
+    }
+    .row{
+        *:last-child{
+            padding-right:15px;
+        }
+    }
+    
+}
+
+.footer_invoice{
+    @include position(fixed, $bottom:0, $left:0);
+    @include bg-opacity($white-color, 0.9%);
+    width: 100%;
+    padding: 2% 0
+}
+.invoice-bution{
+    .btn{
+        margin-left:10px;
+        &:first-child{
+            margin-left:0;
+        }
+    }
+}
+
+.btn_clearfield{
+    color: $black-color;
+}
+
+
+.invoice_pdfview{
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    margin: 15px;
+    padding: 15px;
+    overflow-y: scroll;
+    table{
+        font:11px arial;
+        width: 100%;
+        strong{
+            display:block;
+            padding-top:2px;
+        }
+        td{
+            padding:2px;
+        }
+    }
+}
+
+@media (min-width: 991px){
+    .btn_clearfield{margin-top:4px;}
+    .pr-md-0{padding-right:0;}
+    .pl-md-0{padding-left:0;}
+}
+
+
+.popup_invoice{
+    ._title{
+        padding-top:10px;padding-bottom:10px;
+    }
+    text-transform: uppercase;
+    .space{
+        padding:20px 0 30px;
+    }
+    .form-group{
+        font-size: 0.75rem;
+    }
+    textarea, input{
+        max-width: 300px;
+        resize: none;
+    }
+    .txt_taxradio{
+        .custom-radio{
+            //margin: 0;
+            align-items: center;
+        }
+    }
+    .txt_gstsub{
+        opacity: 0.8;
+        padding-left: 5px;
+        text-transform: lowercase;
+        font-style: normal;
+        font:12px arial;
+    }
+    @media (max-width: 991px){
+        .mes-required{
+            padding-top: 10px;
+        }
+    }
+}
+
+.popup_addlogo{
+    .frame_logo{
+        border: 1px solid $grayshade1-color;
+        width: 150px;
+        height: 150px;
+        margin: 0 auto;
+        @include position(relative);
+        .i_add{
+            @include position(absolute, $bottom: 10px, $right: 10px);
+        }
+    }
+    ._title{
+        padding-top:10px;padding-bottom:10px;
+    }
+    @media (min-width: 991px){
+        .space{
+            padding:5% 0 10%;
+        }
+        .txt_upload{
+            padding:3% 0;
+        }
+    }
+    @media (max-width: 990px){
+        .space{
+            padding:10% 5%;
+        }
+        .txt_upload{
+            padding:6% 0;
+        }
+    }
+
+}
+

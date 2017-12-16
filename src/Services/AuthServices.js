@@ -74,21 +74,22 @@ import {Route, Redirect } from 'react-router';
     });
   }
 
- export function logout() {
-    /*<Route exact path="/" render={() => (
-      <Redirect to="/create-invoice"/>
-    )}/>*/
-    firebase.auth().signOut(); 
+ export function logout() { 
+    firebase.auth().signOut();  
     window.location.reload();
-    console.log('d');
-     
-   
   }
  export function forgotPassword(email){
     return new firebase.auth().sendPasswordResetEmail(email).then(function (result){
       return result;
     })
   }
+
+  export function updatePassword(password){
+    return new firebase.auth().updatePassword(password).then(function (result){
+      return result;
+    })
+  }
+
   export function renderIf(condition, content) {
     if (condition) {
         return content;

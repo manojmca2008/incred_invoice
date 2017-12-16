@@ -7,7 +7,7 @@
         width:100%;
     }
     .section_registered{
-        border-top: 1px solid $grayshade3-color; 
+        border-top: 1px solid $grayshade2-color; 
         padding:15px 0;
         margin-top: 25px;
         text-align: center;
@@ -28,13 +28,13 @@
     }
     .section_btnpassword{
         margin-top: 20px;
-        border-top: 1px solid $grayshade3-color;
+        border-top: 1px solid $grayshade2-color;
         padding: 20px 0;
         text-align: center;
     }
     .txt_terms{
         font:11px arial;
-        padding:5px 0 10px; 
+        padding:5px 0 2rem; 
         @include position(relative);
         a{
             text-transform:capitalize;
@@ -63,7 +63,7 @@
 
     .style_flag{
         display:block;
-        border:1px solid $grayshade5-color;
+        border:1px solid $grayshade2-color;
         padding:0;
         min-height: 35px;
         line-height: 33px;
@@ -82,7 +82,7 @@
         }
         .flag-options{
             border-radius: 0;
-            border-color:$grayshade5-color;
+            border-color:$grayshade2-color;
             margin-top:0;
             width:calc(100% + 2px);
             left: -1px;

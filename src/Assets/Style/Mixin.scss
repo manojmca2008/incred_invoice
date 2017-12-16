@@ -14,7 +14,7 @@
     width: 0;
     height: 0;
     content: '';
-    z-index: 2;
+    //z-index: 2;
     border-#{opposite-position($direction)}: ($size * 1.5) solid $color;
     
     $perpendicular-borders: $size solid transparent;
@@ -42,4 +42,9 @@
   -moz-#{$property}: $value;
   -ms-#{$property}: $value;
   -o-#{$property}: $value;
+}
+
+@mixin bg-opacity($color, $opacity) {
+  background: $color;
+  background: rgba($color, $opacity);
 }

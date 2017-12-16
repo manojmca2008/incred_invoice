@@ -21,21 +21,18 @@ class SignUp extends Component {
     this.state = {
       loading: false,
       error_msg: '',
-      
       otpScreen: false,
+      isChecked: false,
       userDetails: [],
       userAccountDetails: [],
-      userId : '',
-      checkterms: false,
-
+      userId: '',
       signupForm: {
         firstName: '',
         lastName: '',
         email: '',
         phone: '',
         password: '',
-        cpassword: '',
-        isChecked: ''
+        cpassword: ''
       },
       SignupFormMes: {
 
@@ -48,6 +45,7 @@ class SignUp extends Component {
       }
     }
     this.InputHandler = this.InputHandler.bind(this);
+    this.handlertermcheckbox = this.handlertermcheckbox.bind(this);
     this.SignUpValid = this.SignUpValid.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleInputChangeOtpScreen = this.handleInputChangeOtpScreen.bind(this);
@@ -57,74 +55,87 @@ class SignUp extends Component {
   SignUpValid(e) {
     this.setState({
       SignupFormMes: {
-        fname_msg: RequireVal(this.state.signupForm.firstName),
-        email_msg: Email(this.state.signupForm.email),
-        phone_msg: Phone(this.state.signupForm.phone),
-        password_msg: Password(this.state.signupForm.password),
-        cpassword_msg: ConformPassword(this.state.signupForm.password, this.state.signupForm.cpassword),
-        checkterms_msg : CheckboxTrue(this.state.checkterms)
+        fname_msg: RequireVal(this.state.signupForm.firstName)[0],
+        email_msg: Email(this.state.signupForm.email)[0],
+        phone_msg: Phone(this.state.signupForm.phone)[0],
+        password_msg: Password(this.state.signupForm.password)[0],
+        cpassword_msg: ConformPassword(this.state.signupForm.password, this.state.signupForm.cpassword)[0],
+        //checkterms_msg : CheckboxTrue(this.state.checkterms)[0]
       }
     })
   }
-  
+
   InputHandler(e) {
-   this.state.signupForm[e.target.name] = e.target.value;
-   const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    this.state.signupForm[e.target.name] = e.target.value; 
     this.setState({
-      signupForm: this.state.signupForm,
-      checkterms : value
+      signupForm: this.state.signupForm
     });
     this.SignUpValid();
   }
 
-  handeOnChange(value) {
-    this.setState({
-       phone: value
-    });
- }
+  handlertermcheckbox(e) {
+      this.setState({
+        isChecked : e.target.value ? e.target.checked : e.target.value
+      });
+      console.log(this.state.isChecked)
+      this.setState({
+          checkterms_msg : CheckboxTrue(this.state.isChecked)[0]
+      });
+      //console.log(this.state.SignupFormMes.checkterms_msg)
+  }
 
   handleClick(e) {
 
     e.preventDefault();
     this.SignUpValid();
+    //this.handlertermcheckbox();
     const { firstName, email, phone, password, cpassword } = this.state.signupForm;
     const { checkterms } = this.state;
-    if (firstName && email && phone && password && cpassword && checkterms) {
+    console.log(checkterms);
+    if (RequireVal(firstName)[1] || Email(email)[1] || Phone(phone)[1] || Password(password)[1] || ConformPassword(password, cpassword)[1]) {
+      console.log('3')
+      return false;
+    }else{
+      console.log('1')
       this.setState({
         error_msg: '',
         loading: true
       });
       signup(this.state.signupForm.email, this.state.signupForm.password).then(response => {
         register(this.state.signupForm).then(response => {
-          if (response.result) {
+          if (response.status) {
             console.log(response.data.userDetails.id);
             this.setState({
               reg_error: '',
-              userDetails: response.data.userDetails,
-              userAccountDetails: response.data.accountDetails,
-              userId:response.data.userDetails.id
+              //userDetails: response.data.userDetails,
+              //userAccountDetails: response.data.accountDetails,
+              userId: response.data.userDetails.id
             });
-            this.setState({ 
+            localStorage.setItem('isLogin', true);
+            localStorage.setItem('userDetails', JSON.stringify(response.data.userDetails));
+            localStorage.setItem('userAccountDetails', JSON.stringify(response.data.accountDetails));
+            this.setState({
               otpScreen: true,
               otpForm: {
                 otp: '',
               }
             });
             this.setState({ loading: false });
-            localStorage.setItem('step1', true);
-          }else{
+            //localStorage.setItem('step1', true);
+          } else {
             this.setState({
               error_msg: response.message,
-              loading : false
-             });
+              loading: false
+            });
           }
         });
       }).catch(err => {
         this.setState({
           error_msg: err.message,
-          loading : false
+          loading: false
         });
       })
+      
     }
   }
 
@@ -137,7 +148,7 @@ class SignUp extends Component {
   OtpValid() {
     this.setState({
       OtpValidMes: {
-        Otp_msg: Password(this.state.otpForm.otp)
+        Otp_msg: Password(this.state.otpForm.otp)[0]
       }
     })
   }
@@ -145,25 +156,29 @@ class SignUp extends Component {
     e.preventDefault();
     this.OtpValid();
     const { otp } = this.state.otpForm;
-    console.log(otp);
-    if (otp) {
-        this.setState({
-          error_msg: '',
-          loading: true
-        });
-        validateOtp(this.state.otpForm.otp).then(response => {
-        if(response.result){
-          localStorage.setItem('isLogin', true);
-          localStorage.setItem('userDetails', JSON.stringify(this.state.userDetails));
-          localStorage.setItem('userAccountDetails', JSON.stringify(this.state.userAccountDetails));
-          localStorage.setItem('step1', '');
+    console.log(Password(otp)[1]);
+    if (Password(otp)[1]) {
+
+      return false
+
+    }else{
+      this.setState({
+        error_msg: '',
+        loading: true
+      });
+      validateOtp(this.state.otpForm.otp).then(response => {
+        if (response.status) {
+          //localStorage.setItem('isLogin', true);
+         // localStorage.setItem('userDetails', JSON.stringify(this.state.userDetails));
+         // localStorage.setItem('userAccountDetails', JSON.stringify(this.state.userAccountDetails));
+          //localStorage.setItem('step1', '');
           this.setState({ loading: false });
           this.props.history.push('/create-invoice');
-        }else{
-            this.setState({
-              error_msg: response.message,
-              loading : false
-            });
+        } else {
+          this.setState({
+            error_msg: response.message,
+            loading: false
+          });
         }
       });
     }
@@ -176,10 +191,10 @@ class SignUp extends Component {
 
     }
     resendOtp(data).then(response => {
-      if (response.result) {
+      if (response.status) {
       } else {
         this.setState({
-          error_msg: 'something went wrong.'
+          error_msg: response.message
         });
       }
     });
@@ -187,7 +202,7 @@ class SignUp extends Component {
 
   render() {
 
-    if (this.state.otpScreen || localStorage.getItem('step1')) {
+    if (this.state.otpScreen) {
       return (
         <div className="page_otp section_user">
           <p className="_title">STEP 2 - Enter OTP</p>
@@ -225,7 +240,7 @@ class SignUp extends Component {
 
               <div className="row _mr0">
                 <div className="col-md-3">
-                    <input className="form-control" placeholder="+91" type="number" name="countrycode" value={this.state.phone} onChange={this.InputHandler} />
+                  <input className="form-control" placeholder="+91" type="number" name="countrycode" value={this.state.phone} onChange={this.InputHandler} />
                 </div>
 
                 <input className="form-control col-md-9" type="number" name="phone" value={this.state.phone} onChange={this.InputHandler} />
@@ -251,14 +266,14 @@ class SignUp extends Component {
             </div>
             <div className="txt_terms">
               <label className="custom-control custom-checkbox">
-              <input type="checkbox" className="custom-control-input" name="checkterms" checked={this.state.isChecked} onChange={this.InputHandler} /><span className="custom-control-indicator"></span></label> By registering, you agree to our <Link to="/terms-of-service" target="_blank">Terms of Service</Link> and <Link to="/privacy-policy" target="_blank">Privacy Policy</Link>.</div>
-               <p className="mes_error">{this.state.SignupFormMes.checkterms_msg}</p>
-               <p className="mes_error api_error">{this.state.error_msg}</p>
+                <input type="checkbox" className="custom-control-input" name="checkterms" checked={this.state.isChecked} onChange={this.handlertermcheckbox} /><span className="custom-control-indicator"></span></label> By registering, you agree to our <Link to="/terms-of-service" target="_blank">Terms of Service</Link> and <Link to="/privacy-policy" target="_blank">Privacy Policy</Link>.</div>
+            <p className="mes_error">{this.state.checkterms_msg}</p>
+            <p className="mes_error api_error">{this.state.error_msg}</p>
           </div>
 
 
           <div className="form_footerstyle">
-            
+
             <div className="style_line justify-content-between l">
               <p className="txt">STEP 1</p>
               <div className="justify-content-between _line">
@@ -269,9 +284,9 @@ class SignUp extends Component {
 
             <div className="row align-items-center">
               <div className="col align-middle"><Link to="/sign-in" className="txt_already">Already have an account?</Link></div>
-              <div className="col text-right"><button type="submit" className={'btn btn-primary ' + ((this.state.loading) ? 'btndisabled' : '')}  onClick={this.handleClick}>Next ></button></div>
+              <div className="col text-right"><button type="submit" className={'btn btn-primary ' + ((this.state.loading) ? 'btndisabled' : '')} onClick={this.handleClick}>Next ></button></div>
             </div>
-            </div>
+          </div>
         </div>
       );
     }

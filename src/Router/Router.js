@@ -38,6 +38,7 @@ const Router = () => (
       <Route path='/register' component={SignUp}/>
       <Route path='/forget-password' component={ForgetPassword}/>
       <Route path='/reset-password/:token' component={ChangePassword}/>
+      
       <Route path='/account-setting' component={AccountSetting}/>
       <Route path='/privacy-policy' component={PrivacyPolicy}/>
       <Route path='/terms-of-service' component={TermOfService}/>

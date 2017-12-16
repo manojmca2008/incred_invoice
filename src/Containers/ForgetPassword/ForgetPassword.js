@@ -17,7 +17,9 @@ class ForgetPassword extends Component {
       }
     });
     this.state = {
-      email: ''
+      email: '', 
+      email_thanksmes: '',
+      loading: false
     }
     this.InputHandler = this.InputHandler.bind(this);
   }
@@ -32,23 +34,30 @@ class ForgetPassword extends Component {
   }
   HandleClick(e) {
     e.preventDefault();
-    let hasError = Email(this.state.email);
-    if (hasError) {
+    if (Email(this.state.email)[1]) {
       this.setState({
-        email_errormes: Email(this.state.email)
+        email_errormes: Email(this.state.email)[0]
       });
       return false;
     } else {
+      this.setState({
+        loading : true
+      });
       let data = {
         email: this.state.email,
       }
       forgotPassword(data).then(response => {
         console.log(response);
-        if(response.result){
-
+        if(response.status){
+          this.setState({
+            loading : false,
+            email_thanksmes : RESETTHANKYOU_VALId
+          });
         }else{
             this.setState({
-              email_errormes: response
+              email_errormes: response.message,
+              email_thanksmes: '',
+              loading : false
             });
         }
       });
@@ -74,7 +83,7 @@ class ForgetPassword extends Component {
           <input className="form-control" name="email" type="email" value={this.state.email} onChange={this.InputHandler} />
           <p className="mes_error">{this.state.email_errormes}</p>
         </div>
-        <p className="text-center"><button type="submit" className="btn btn-primary" onClick={(e) => this.HandleClick(e)}>Submit</button></p>
+        <p className="text-center"><button type="submit" className={'btn btn-primary ' + ((this.state.loading) ? 'btndisabled' : '')} onClick={(e) => this.HandleClick(e)}>Submit</button></p>
         </div>
         <div className="section_btnpassword">
           <p><Link to="/sign-in" className="btn btn-success">login</Link>  <Link to="/register" className="btn btn-success">Sign Up</Link></p>
