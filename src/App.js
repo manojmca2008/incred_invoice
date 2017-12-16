@@ -13,7 +13,7 @@ class App extends Component {
     super(props);
   }
   componentWillMount(){
-    this.userDetails();
+    //this.userDetails();
   }
   userDetails() {
     getUserDetails().then(response => {

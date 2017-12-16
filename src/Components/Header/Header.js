@@ -71,7 +71,7 @@ class Header extends Component {
               <li className="nav-item"><Link to="/track-payments-due" onClick={this.DropDownOff}>Track Payments Due</Link></li>
               <li className="nav-item"><Link to="/account-overview" onClick={this.DropDownOff}>Account Overview</Link></li>
               <li className="nav-item"><Link to="/record-expenses" onClick={this.DropDownOff}>Record Expenses</Link></li>
-              <li className="nav-item bordernone"><Link to="/view-pass-expenses" onClick={this.DropDownOff}>View Pass Expenses</Link></li>
+              <li className="nav-item bordernone"><Link to="/view-pass-expenses" onClick={this.DropDownOff}>View Past Expenses</Link></li>
 
               <li className="mobile_dropdown_footer ad-md-show">
                 <div className="_p">
