@@ -2,7 +2,7 @@
 import firebase from 'firebase';
 
 import React, { Component } from 'react';
-//import { Switch, Redirect } from 'react-router';
+import {Route, Redirect } from 'react-router';
 
 //class AuthServices extends Component {
   export function  signup(email ,password) {
