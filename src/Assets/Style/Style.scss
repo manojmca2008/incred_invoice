@@ -185,41 +185,6 @@ input{
     font-size:1.125em;
 }
 
-.field_box{
-    background: $redshade1-color;
-    color: $white-color;
-    //height: 100%;
-    text-align: center;
-    font-size: 11px;
-    cursor: pointer;
-    //@include position(relative);
-    padding: 10px;
-    margin-top: 10px;
-    text-transform: uppercase;
-    &:hover:before{
-        /*content: 'EDIT';
-        width: 100%;
-        text-align: center;
-        background: rgba(0, 0, 0, 0.1);
-        font-size: 0.75rem;
-        padding: 3px 0;
-        @include position(absolute, $top:0, $left:0);*/
-    }
-    &.box_invoicelogo{
-        justify-content: center;
-    }
-    &.multiline{
-        height: 51px;
-    }
-    &.ac{
-        height:100%;
-        justify-content: center;
-    }
-    &.data{
-        background: $green-color;
-    }
-}
-
 .custom-checkbox {
     .custom-control-input{
         &:checked{
