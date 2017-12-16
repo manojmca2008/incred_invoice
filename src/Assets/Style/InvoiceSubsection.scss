@@ -157,6 +157,13 @@
         @include position(relative);
         .i_add{
             @include position(absolute, $bottom: 10px, $right: 10px);
+            span{
+                @include position(relative);
+                .file-input{
+                    @include position(absolute, $top: 0, $left: 0);
+                    opacity: 0;
+                }
+            }
         }
     }
     ._title{

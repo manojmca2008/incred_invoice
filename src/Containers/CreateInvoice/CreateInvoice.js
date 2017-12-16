@@ -243,53 +243,61 @@ class CreateInvoice extends Component {
           <div className="col">
             <div className="invoice_pdfview">
               <table>
-                <tr>
-                  <td>
-                    <table>
-                      <tr>
-                        <td width="50%" valign="top">
-                          <table>
-                            <tr>
-                              <td width="30%"  valign="middle">
-                                Company Logo
+                <tbody>
+                  <tr>
+                    <td>
+                      <table>
+                        <tbody>
+                          <tr>
+                            <td width="50%" valign="top">
+                              <table>
+                                <tbody>
+                                  <tr>
+                                    <td width="30%" valign="middle">
+                                      Company Logo
                               </td>
-                              <td>
-                                <strong>YOUR (OR COMPANY) NAME</strong>
-                                <p>Your (or company) address</p>
-                                <p>GST No: ASEDRPFD50</p> 
-                                <p>Contact: 9869859696</p>
-                                <p>E-Mail: arpit@incred.pro</p>
-                                <p>www.incred.pro</p>
-                              </td> 
-                            </tr>
-                          </table>
-                          <div>
+                                    <td>
+                                      <strong>YOUR (OR COMPANY) NAME</strong>
+                                      <p>Your (or company) address</p>
+                                      <p>GST No: ASEDRPFD50</p>
+                                      <p>Contact: 9869859696</p>
+                                      <p>E-Mail: arpit@incred.pro</p>
+                                      <p>www.incred.pro</p>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                              <div>
                                 <strong>CUSTOMER/CLIENT NAME</strong>
                                 <p>Customer address</p>
-                                <p>GST No: ASEDRPFD50</p> 
-                                <p>PAN No: ASEDRPFD50</p> 
-                                <p>AADHAR No: ASEDRPFD50</p> 
+                                <p>GST No: ASEDRPFD50</p>
+                                <p>PAN No: ASEDRPFD50</p>
+                                <p>AADHAR No: ASEDRPFD50</p>
                                 <p>Contact: 9869859696</p>
                                 <p>E-Mail: arpit@incred.pro</p>
                                 <p>www.incred.pro</p>
-                          </div>
-                        </td>
-                        <td valign="top">
-                          <table>
-                            <tr>
-                              <td>Invoice number<strong>21</strong></td>
-                              <td>Date<strong>01/01/2017</strong></td>
-                            </tr>
-                            <tr>
-                              <td>Delivery note<strong>aaaaa</strong></td>
-                              <td>Mode/Terms of Payment<strong>Cash</strong></td>
-                            </tr>
-                          </table>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
+                              </div>
+                            </td>
+                            <td valign="top">
+                              <table>
+                                <tbody>
+                                  <tr>
+                                    <td>Invoice number<strong>21</strong></td>
+                                    <td>Date<strong>01/01/2017</strong></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Delivery note<strong>aaaaa</strong></td>
+                                    <td>Mode/Terms of Payment<strong>Cash</strong></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
             </div>
           </div>
