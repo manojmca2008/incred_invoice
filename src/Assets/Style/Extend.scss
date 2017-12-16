@@ -14,20 +14,22 @@
 }
 
 .i_add{
-    border: 2px solid $grayshade1-color;
-    border-radius: 100%;
-    width: 30px;
-    height: 30px;
-    display: block;
-    text-align: center;
-    color: $grayshade1-color;
-    font-size: 1.6rem;
-    font-weight: 700;
-    line-height: 28px;
-    padding-left: 1px;
-    cursor: pointer;
-    &:hover{
-        background : $grayshade1-color;
-        color: $white-color;
+    .btn_upload{
+        border: 2px solid $grayshade1-color;
+        border-radius: 100%;
+        width: 30px;
+        height: 30px;
+        display: block;
+        text-align: center;
+        color: $grayshade1-color;
+        font-size: 1.6rem;
+        font-weight: 700;
+        line-height: 28px;
+        padding-left: 1px;
+        cursor: pointer;
+        &:hover{
+            background : $grayshade1-color;
+            color: $white-color;
+        }
     }
 }

@@ -43,6 +43,7 @@
     "react-country-select-amn": "^1.1.1",
     "react-dev-utils": "^4.2.1",
     "react-dom": "^16.2.0",
+    "react-file-input": "^0.2.5",
     "react-flags": "^0.1.12",
     "react-flags-select": "^1.1.0",
     "react-native-flags": "^1.0.0",
